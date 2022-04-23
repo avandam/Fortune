@@ -8,9 +8,19 @@ namespace Fortune.Logic
 {
     public class Certificate
     {
-        public Resource Resource { get; private set; }
-        public int Percentage { get; private set; }
-        public int Price { get; private set; }
-        public Area Area { get; private set; }
+        public Resource Resource { get; }
+        public int Percentage { get; }
+        public int Price { get; }
+        public Zone Zone { get; }
+        public string Region { get; }
+
+        public Certificate(Resource resource, int percentage, int price, Zone zone, string region)
+        {
+            Resource = resource;
+            Percentage = percentage;
+            Price = price;
+            Zone = zone;
+            Region = region;
+        }
     }
 }

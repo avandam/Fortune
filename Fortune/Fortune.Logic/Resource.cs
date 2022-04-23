@@ -10,12 +10,12 @@ namespace Fortune.Logic
     public class Resource
     {
         public string Name { get; set; }
-        public int RoyaltyPrice { get; set; }
+        public int RoyaltyFee { get; set; }
 
-        public Resource(string name, int royaltyPrice)
+        public Resource(string name, int royaltyFee)
         {
             Name = name;
-            RoyaltyPrice = royaltyPrice;
+            RoyaltyFee = royaltyFee;
         }
 
         public int GetFee(int percentage)
@@ -26,19 +26,19 @@ namespace Fortune.Logic
             }
             else if (percentage < 50)
             {
-                return RoyaltyPrice;
+                return RoyaltyFee;
             }
             else if (percentage < 70)
             {
-                return RoyaltyPrice * 5;
+                return RoyaltyFee * 5;
             }
             else if (percentage < 90)
             {
-                return RoyaltyPrice * 5 * 2;
+                return RoyaltyFee * 5 * 2;
             }
             else
             {
-                return RoyaltyPrice * 5 * 2 * 2;
+                return RoyaltyFee * 5 * 2 * 2;
             }
         }
 

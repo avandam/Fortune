@@ -7,20 +7,22 @@ using System.Threading.Tasks;
 
 namespace Fortune.Logic
 {
-    public class Continent
+    public class Zone
     {
-        public string Name { get; private set; }
+        public string Country { get; private set; }
+        public string Continent { get; private set; }
         public Color Color { get; private set; }
 
-        public Continent(string name, Color color)
+        public Zone(string country, string continent, Color color)
         {
-            Name = name;
+            Country = country;
+            Continent = continent;
             Color = color;
         }
 
         public override string ToString()
         {
-            return Name;
+            return $"{Country} - {Continent}";
         }
     }
 }

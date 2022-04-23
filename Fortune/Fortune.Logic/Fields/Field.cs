@@ -1,13 +1,13 @@
 ﻿using Fortune.Logic.Exceptions;
 
-namespace Fortune.Logic
+namespace Fortune.Logic.Fields
 {
     public abstract class Field
     {
         protected Game Game { get; }
         public Resource Resource { get; }
         protected List<Certificate> Certificates { get; }
-        public Continent Continent { get; } // TODO: Consider removing this and get it from certificates -> What if all certificates are bought?
+        public Zone Zone { get; } 
         public int Number { get; }
         public string Name { get; }
 
@@ -19,6 +19,7 @@ namespace Fortune.Logic
         {
         }
 
+        // TODO: Will not be used? Remove?
         protected Field(Game game, int number, string name, List<Certificate> certificates) : this(game, number, name, null, certificates)
         {
         }
@@ -32,23 +33,23 @@ namespace Fortune.Logic
             Certificates = certificates;
             if (Certificates != null && Certificates.Count > 0)
             {
-                Continent = Certificates[0].Area.Continent; // TODO: Fix code smell
+                Zone = Certificates[0].Zone; 
             }
         }
-
-        public abstract void DoAction(Player currentPlayer, int redDiceValue, int whiteDiceValue);
 
         public bool HasResource()
         {
             return Resource != null;
         }
 
+        public abstract void DoAction(int redDiceValue, int whiteDiceValue);
+
         public virtual void ReturnCertificate(Certificate certificate)
         {
             throw new CertificateNotSupportedException($"Field {Name} does not support certificate actions");
         }
 
-        public virtual void BuyCertificate(Player player, Certificate certificate)
+        public virtual void BuyCertificate(Certificate certificate)
         {
             throw new CertificateNotSupportedException($"Field {Name} does not support certificate actions");
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fortune.Logic.Fields;
 
 namespace Fortune.Logic
 {
@@ -11,10 +12,11 @@ namespace Fortune.Logic
         public string Name { get; }
         public int Number { get; }
         public int Cash { get; private set; }
+        
         private Field location;
         public bool IsBankrupt;
         public int NumberOfJokers;
-        private List<Certificate> certificates;
+        private readonly List<Certificate> certificates;
 
         public Player(string name, int number, int cash, Field location)
         {
@@ -71,9 +73,8 @@ namespace Fortune.Logic
             // Event to ui to offer cards
         }
         
-        public void BuyCertificate(Certificate certificate)
+        public void AddCertificate(Certificate certificate)
         {
-            UpdateCash(-certificate.Price);
             certificates.Add(certificate);
         }
 

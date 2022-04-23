@@ -1,7 +1,15 @@
-﻿namespace Fortune.Logic
+﻿using System.Runtime.Versioning;
+using Fortune.Logic.Exceptions;
+using Fortune.Logic.Fields;
+
+namespace Fortune.Logic
 {
     public class Game
     {
+        private const int jokerPrice = 3000000;
+        private const int bonusValue = 500000;
+        private const int doubleFee = -1000000;
+
         private readonly Random random = new Random();
         private readonly List<Player> players;
         private Player currentPlayer;
@@ -13,7 +21,6 @@
             this.currentPlayer = players.First();
         }
 
-
         public void DoTurn()
         {
             if (currentPlayer.IsBankrupt)
@@ -24,8 +31,7 @@
 
             Field field = Move(out var redDie, out var whiteDie);
             PayResourceFee(field);
-            field.DoAction(currentPlayer, redDie, whiteDie);
-
+            field.DoAction(redDie, whiteDie);
         }
 
         public void EndTurn()
@@ -44,7 +50,7 @@
                         int percentageOfResource = player.GetPercentageForResource(field.Resource);
                         int fee = field.Resource.GetFee(percentageOfResource);
                         player.UpdateCash(fee);
-                        currentPlayer.UpdateCash(0 - fee);
+                        currentPlayer.UpdateCash(-fee);
                     }
                 }
             }
@@ -57,7 +63,7 @@
 
             if (redDie == whiteDie)
             {
-                currentPlayer.UpdateCash(redDie * -1000000);
+                currentPlayer.UpdateCash(redDie * doubleFee);
             }
 
             int newFieldNumber = (currentPlayer.GetLocation().Number + redDie + whiteDie) % fields.Count;
@@ -66,11 +72,11 @@
             return field;
         }
 
-        public List<Certificate> GetPossibleCertificates(List<Continent> continents, Player player)
+        public List<Certificate> GetPossibleCertificates(List<string> zones)
         {
-            List<Resource> allowedResources = player.GetResourcesOwned();
+            List<Resource> allowedResources = currentPlayer.GetResourcesOwned();
             List<Certificate> possibleCertificates = new List<Certificate>();
-            foreach (Area area in fields.Where(field => field is Area && continents.Contains((field as Area).Continent)))
+            foreach (Area area in fields.Where(field => field is Area area && zones.Contains(area.Zone.Continent)))
             {
                 List<Certificate> certificates = area.GetCertificates();
                 possibleCertificates.AddRange(certificates.Where(certificate => allowedResources.Contains(certificate.Resource)));
@@ -79,9 +85,9 @@
             return possibleCertificates;
         }
 
-        public List<Certificate> GetPossibleCertificates(Player player)
+        public List<Certificate> GetPossibleCertificates()
         {
-            List<Resource> allowedResources = player.GetResourcesOwned();
+            List<Resource> allowedResources = currentPlayer.GetResourcesOwned();
             List<Certificate> possibleCertificates = new List<Certificate>();
             foreach (Area area in fields.Where(field => field is Area))
             {
@@ -92,16 +98,82 @@
             return possibleCertificates;
         }
 
-        public void BuyCertificate(Player currentPlayer, Certificate certificate)
+        public void BuyCertificate(Certificate certificate)
         {
-            if (certificate.Area.GetCertificates().Contains(certificate))
+            Field certificateField = fields.First(field => field.Zone == certificate.Zone);
+
+            if (!certificateField.GetCertificates().Contains(certificate))
             {
-                if (currentPlayer.Cash >= certificate.Price)
-                {
-                    currentPlayer.BuyCertificate(certificate);
-                    certificate.Area.GetCertificates().Remove(certificate);
-                }
+                throw new CertificateActionNotAllowedException($"Field {certificateField} does not contain certificate {certificate}");
             }
+
+            if (currentPlayer.Cash <= certificate.Price)
+            {
+                throw new CertificateActionNotAllowedException($"Player {currentPlayer} does not have enough cash to buy this certificate");
+            }
+            
+            certificateField.BuyCertificate(certificate);
+            currentPlayer.UpdateCash(-certificate.Price);
+            currentPlayer.AddCertificate(certificate);
         }
+
+
+        #region PlayerActions
+
+        #endregion PlayerActions
+
+        #region FieldActions
+        public void HandleJoker()
+        {
+            if (currentPlayer.Cash < jokerPrice)
+            {
+                // Handle UI action to inform no Joker is allowed to be bought
+            }
+            currentPlayer.OfferJoker();
+        }
+
+        public void HandleBonus(int diceValue)
+        {
+            currentPlayer.UpdateCash(diceValue * bonusValue);
+        }
+
+        public void HandleTelex(string text, List<Resource> resources, int maxFee, int minFee, bool isGain)
+        {
+            // Handle UI action to show the telex information
+            if (resources == null || resources.Count == 0)
+            {
+                currentPlayer.UpdateCash(isGain ? maxFee : -maxFee);
+                return;
+            }
+
+            if (resources.Any(resource => currentPlayer.HasResource(resource)))
+            {
+                currentPlayer.UpdateCash(isGain ? maxFee : -maxFee);
+                return;
+            }
+
+            currentPlayer.UpdateCash(isGain ? minFee : -minFee);
+        }
+
+        public void HandleChoiceWorld()
+        {
+            currentPlayer.OfferCertificates(GetPossibleCertificates());
+        }
+
+        public void HandleChoiceContinent(List<string> continents)
+        {
+            currentPlayer.OfferCertificates(GetPossibleCertificates(continents));
+        }
+
+        public void HandleAuction(int numberOfCertificates)
+        {
+            currentPlayer.Auction(numberOfCertificates);
+        }
+
+        public void HandleArea(List<Certificate> certificates)
+        {
+            currentPlayer.OfferCertificates(certificates);
+        }
+        #endregion FieldActions
     }
 }
