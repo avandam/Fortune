@@ -8,7 +8,7 @@
 
         public override void DoAction(int redDiceValue, int whiteDiceValue)
         {
-            Game.HandleJoker();
+            Game.HandleBuyJoker();
         }
     }
 }

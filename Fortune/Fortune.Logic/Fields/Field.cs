@@ -42,7 +42,15 @@ namespace Fortune.Logic.Fields
             return Resource != null;
         }
 
-        public abstract void DoAction(int redDiceValue, int whiteDiceValue);
+        public virtual void OnEntry(int redDiceValue, int whiteDiceValue)
+        {
+            // Default: Do Nothing
+        }
+
+        public virtual void DoAction(int redDiceValue, int whiteDiceValue)
+        {
+            // Default: Do Nothing
+        }
 
         public virtual void ReturnCertificate(Certificate certificate)
         {

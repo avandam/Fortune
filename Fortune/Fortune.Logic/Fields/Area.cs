@@ -8,6 +8,11 @@ namespace Fortune.Logic.Fields
         {
         }
 
+        public override void OnEntry(int redDiceValue, int whiteDiceValue)
+        {
+            Game.HandleResourceFee(Resource);
+        }
+
         public override void DoAction(int redDiceValue, int whiteDiceValue)
         {
             Game.HandleArea(Certificates);

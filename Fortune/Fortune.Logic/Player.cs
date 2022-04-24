@@ -15,17 +15,17 @@ namespace Fortune.Logic
         
         private Field location;
         public bool IsBankrupt;
-        public int NumberOfJokers;
+        public int NumberOfJokers { get; private set; }
         private readonly List<Certificate> certificates;
 
-        public Player(string name, int number, int cash, Field location)
+        public Player(string name, int number, int cash)
         {
             Name = name;
             Number = number;
             Cash = cash;
-            this.location = location;
             NumberOfJokers = 0;
             certificates = new List<Certificate>();
+            location = new Start();
         }
 
         public void UpdateCash(int value)
@@ -88,5 +88,20 @@ namespace Fortune.Logic
             NumberOfJokers++;
         }
 
+        public void SellJoker()
+        {
+            NumberOfJokers--;
+        }
+
+
+        public bool HasCertificate(Certificate certificate)
+        {
+            return certificates.Contains(certificate);
+        }
+
+        public void RemoveCertificate(Certificate certificate)
+        {
+            certificates.Remove(certificate);
+        }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Fortune.Logic.Tests.Fields
 {
     /// <summary>
-    /// Tests for simple fields
+    /// Tests for simple Fields
     /// Start
     /// Joker
     /// Bonus
@@ -20,7 +20,7 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void StartHasNoResourcesTest()
         {
-            Start field = new Start(null);
+            Start field = new Start();
             Assert.IsFalse(field.HasResource());
         }
         #endregion Start Tests

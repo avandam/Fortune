@@ -9,6 +9,11 @@
             this.continents = continents;
         }
 
+        public override void OnEntry(int redDiceValue, int whiteDiceValue)
+        {
+            Game.HandleResourceFee(Resource);
+        }
+
         public override void DoAction(int redDiceValue, int whiteDiceValue)
         {
             Game.HandleChoiceContinent(continents);

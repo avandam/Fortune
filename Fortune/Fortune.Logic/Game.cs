@@ -10,15 +10,23 @@ namespace Fortune.Logic
         private const int bonusValue = 500000;
         private const int doubleFee = -1000000;
 
+        private const int maxNumberOfCertificatesToBuy = 3;
+        public int NumberOfCertificatesBoughtThisTurn { get; private set; } = 0;
+
         private readonly Random random = new Random();
         private readonly List<Player> players;
         private Player currentPlayer;
-        private readonly List<Field> fields = new List<Field>();
+        private List<Field> fields = new List<Field>();
 
         public Game(List<Player> players)
         {
             this.players = players;
             this.currentPlayer = players.First();
+        }
+
+        public void AddBoard(List<Field> boardFields)
+        {
+            this.fields = boardFields;
         }
 
         public void DoTurn()
@@ -30,41 +38,30 @@ namespace Fortune.Logic
             }
 
             Field field = Move(out var redDie, out var whiteDie);
-            PayResourceFee(field);
+            field.OnEntry(redDie, whiteDie);
+            
+            if (redDie == whiteDie)
+            {
+                currentPlayer.UpdateCash(redDie * doubleFee);
+                if (currentPlayer.IsBankrupt)
+                {
+                    EndTurn();
+                    return;
+                }
+            }
             field.DoAction(redDie, whiteDie);
         }
 
         public void EndTurn()
         {
+            NumberOfCertificatesBoughtThisTurn = 0;
             currentPlayer = players.First(player => player.Number == (currentPlayer.Number + 1) % players.Count);
-        }
-
-        private void PayResourceFee(Field field)
-        {
-            if (field.HasResource())
-            {
-                foreach (Player player in players)
-                {
-                    if (player != currentPlayer)
-                    {
-                        int percentageOfResource = player.GetPercentageForResource(field.Resource);
-                        int fee = field.Resource.GetFee(percentageOfResource);
-                        player.UpdateCash(fee);
-                        currentPlayer.UpdateCash(-fee);
-                    }
-                }
-            }
         }
 
         private Field Move(out int redDie, out int whiteDie)
         {
             redDie = random.Next(1, 6);
             whiteDie = random.Next(1, 6);
-
-            if (redDie == whiteDie)
-            {
-                currentPlayer.UpdateCash(redDie * doubleFee);
-            }
 
             int newFieldNumber = (currentPlayer.GetLocation().Number + redDie + whiteDie) % fields.Count;
             Field field = fields.First(field => field.Number == newFieldNumber);
@@ -98,8 +95,36 @@ namespace Fortune.Logic
             return possibleCertificates;
         }
 
+        #region PlayerActions
+        public void BuyJoker()
+        {
+            if (currentPlayer.Cash < jokerPrice)
+            {
+                throw new JokerException("Player can not afford a Joker");
+            }
+
+            currentPlayer.UpdateCash(-jokerPrice);
+            currentPlayer.BuyJoker();
+        }
+
+        public void SellJoker()
+        {
+            if (currentPlayer.NumberOfJokers == 0)
+            {
+                throw new JokerException("Can not sell a Joker if you do not have one");
+            }
+
+            currentPlayer.UpdateCash(jokerPrice);
+            currentPlayer.SellJoker();
+        }
+
         public void BuyCertificate(Certificate certificate)
         {
+            if (NumberOfCertificatesBoughtThisTurn >= maxNumberOfCertificatesToBuy)
+            {
+                throw new CertificateNotAllowedToBuyException("Already purchased the maximum number of certificates this turn");
+            }
+
             Field certificateField = fields.First(field => field.Zone == certificate.Zone);
 
             if (!certificateField.GetCertificates().Contains(certificate))
@@ -111,19 +136,57 @@ namespace Fortune.Logic
             {
                 throw new CertificateActionNotAllowedException($"Player {currentPlayer} does not have enough cash to buy this certificate");
             }
-            
+
             certificateField.BuyCertificate(certificate);
             currentPlayer.UpdateCash(-certificate.Price);
             currentPlayer.AddCertificate(certificate);
+            NumberOfCertificatesBoughtThisTurn++;
         }
 
+        public void AuctionCertificate(Certificate certificate, Player buyingPlayer, int price)
+        {
+            if (!currentPlayer.HasCertificate(certificate))
+            {
+                throw new CertificateSaleInvalidException("You cannot sell a certificate you don't own");
+            }
 
-        #region PlayerActions
+            if (currentPlayer == buyingPlayer)
+            {
+                throw new CertificateSaleInvalidException("You can not buy your own certificate");
+            }
 
+            if (buyingPlayer.Cash < certificate.Price)
+            {
+                throw new CertificateSaleInvalidException("Buying player can not afford this certificate");
+            }
+
+            if (price < certificate.Price / 2)
+            {
+                throw new CertificateSaleInvalidException("It is not allowed to sell a certificate below half the original price");
+            }
+
+            buyingPlayer.UpdateCash(-price);
+            currentPlayer.UpdateCash(price);
+            currentPlayer.RemoveCertificate(certificate);
+            buyingPlayer.AddCertificate(certificate);
+        }
+
+        public void AuctionCertificateToBank(Certificate certificate)
+        {
+            if (!currentPlayer.HasCertificate(certificate))
+            {
+                throw new CertificateSaleInvalidException("You cannot sell a certificate you don't own");
+            }
+
+            Area area = fields.First(field => field is Area && (field as Area).Zone == certificate.Zone) as Area;
+            currentPlayer.RemoveCertificate(certificate);
+            currentPlayer.UpdateCash(certificate.Price / 2);
+            area.ReturnCertificate(certificate);
+        }
         #endregion PlayerActions
 
         #region FieldActions
-        public void HandleJoker()
+        public void HandleBuyJoker()
         {
             if (currentPlayer.Cash < jokerPrice)
             {
@@ -134,6 +197,8 @@ namespace Fortune.Logic
 
         public void HandleBonus(int diceValue)
         {
+            // Handle UI action to inform that user gets a bonus
+            
             currentPlayer.UpdateCash(diceValue * bonusValue);
         }
 
@@ -174,6 +239,21 @@ namespace Fortune.Logic
         {
             currentPlayer.OfferCertificates(certificates);
         }
+        public void HandleResourceFee(Resource resource)
+        {
+            foreach (Player player in players)
+            {
+                if (player != currentPlayer)
+                {
+                    int percentageOfResource = player.GetPercentageForResource(resource);
+                    int fee = resource.GetFee(percentageOfResource);
+                    player.UpdateCash(fee);
+                    currentPlayer.UpdateCash(-fee);
+                }
+            }
+        }
+
         #endregion FieldActions
+
     }
 }

@@ -2,7 +2,7 @@
 {
     public class Start : Field
     {
-        public Start(Game game) : base(game, -1, "Start")
+        public Start() : base(null, -1, "Start")
         {
 
         }

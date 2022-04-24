@@ -6,9 +6,10 @@
         {
         }
 
-        public override void DoAction(int redDiceValue, int whiteDiceValue)
+        public override void OnEntry(int redDiceValue, int whiteDiceValue)
         {
             Game.HandleBonus(redDiceValue + whiteDiceValue);
+            Game.HandleResourceFee(Resource);
         }
     }
 }
