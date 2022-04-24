@@ -69,11 +69,11 @@ namespace Fortune.Logic
             return field;
         }
 
-        public List<Certificate> GetPossibleCertificates(List<string> zones)
+        public List<Certificate> GetPossibleCertificates(List<ContinentType> continents)
         {
             List<Resource> allowedResources = currentPlayer.GetResourcesOwned();
             List<Certificate> possibleCertificates = new List<Certificate>();
-            foreach (Area area in fields.Where(field => field is Area area && zones.Contains(area.Zone.Continent)))
+            foreach (Area area in fields.Where(field => field is Area area && continents.Contains(area.Zone.Continent)))
             {
                 List<Certificate> certificates = area.GetCertificates();
                 possibleCertificates.AddRange(certificates.Where(certificate => allowedResources.Contains(certificate.Resource)));
@@ -225,7 +225,7 @@ namespace Fortune.Logic
             currentPlayer.OfferCertificates(GetPossibleCertificates());
         }
 
-        public void HandleChoiceContinent(List<string> continents)
+        public void HandleChoiceContinent(List<ContinentType> continents)
         {
             currentPlayer.OfferCertificates(GetPossibleCertificates(continents));
         }

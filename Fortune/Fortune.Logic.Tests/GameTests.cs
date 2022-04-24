@@ -59,7 +59,7 @@ namespace Fortune.Logic.Tests
         [TestMethod()]
         public void BuyCertificateTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Certificate certificate1 = new Certificate(new Resource("Aluminum", 100000), 5, 500000, zone, "Netherlands");
             Player player = new Player("Test", 1, 10000000);
             
@@ -78,7 +78,7 @@ namespace Fortune.Logic.Tests
         [TestMethod()]
         public void BuyCertificateNoCertificateAtFieldTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Certificate certificate1 = new Certificate(new Resource("Aluminum", 100000), 5, 500000, zone, "Netherlands");
             Certificate certificate2 = new Certificate(new Resource("Aluminum", 200000), 5, 500000, zone, "Belgium");
             Player player = new Player("Test", 1, 10000000);
@@ -95,7 +95,7 @@ namespace Fortune.Logic.Tests
         [TestMethod()]
         public void BuyCertificateNotEnoughMoneyTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Certificate certificate1 = new Certificate(new Resource("Aluminum", 100000), 5, 500000, zone, "Netherlands");
             Player player = new Player("Test", 1, 0);
 
@@ -111,7 +111,7 @@ namespace Fortune.Logic.Tests
         [TestMethod()]
         public void BuyCertificateTooManyBuysTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Certificate certificate1 = new Certificate(new Resource("Aluminum", 100000), 5, 500000, zone, "Netherlands");
             Certificate certificate2 = new Certificate(new Resource("Aluminum", 200000), 5, 500000, zone, "Belgium");
             Certificate certificate3 = new Certificate(new Resource("Aluminum", 200000), 5, 500000, zone, "Luxemburg");

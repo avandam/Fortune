@@ -2,9 +2,9 @@
 {
     public class ChoiceContinent : Field
     {
-        private readonly List<string> continents;
+        private readonly List<ContinentType> continents;
 
-        public ChoiceContinent(Game game, int number, Resource resource, List<string> continents) : base(game, number, "Choice ", resource)
+        public ChoiceContinent(Game game, int number, Resource resource, List<ContinentType> continents) : base(game, number, "Choice ", resource)
         {
             this.continents = continents;
         }

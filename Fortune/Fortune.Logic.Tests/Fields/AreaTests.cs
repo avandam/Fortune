@@ -12,7 +12,7 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void GetCertificatesTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Resource resource1 = new Resource("Aluminum", 500000);
             Resource resource2 = new Resource("Gold", 500000);
             Resource resource3 = new Resource("Tea", 500000);
@@ -35,7 +35,7 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void GetCertificatesWithResourcesTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Resource resource1 = new Resource("Aluminum", 500000);
             Resource resource2 = new Resource("Gold", 500000);
             Resource resource3 = new Resource("Tea", 500000);
@@ -56,7 +56,7 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void GetCertificatesWithMultipleResourcesTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Resource resource1 = new Resource("Aluminum", 500000);
             Resource resource2 = new Resource("Gold", 500000);
             Resource resource3 = new Resource("Tea", 500000);
@@ -78,7 +78,7 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void ReturnCertificateTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Resource resource1 = new Resource("Aluminum", 500000);
             Resource resource2 = new Resource("Gold", 500000);
             Resource resource3 = new Resource("Tea", 500000);
@@ -102,7 +102,7 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void ReturnCertificateExistingTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Resource resource1 = new Resource("Aluminum", 500000);
             Resource resource2 = new Resource("Gold", 500000);
             Resource resource3 = new Resource("Tea", 500000);
@@ -119,8 +119,8 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void ReturnCertificateWrongZoneTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
-            Zone zone2 = new Zone("Germany", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
+            Zone zone2 = new Zone("Germany", ContinentType.Europe, Color.LimeGreen);
             Resource resource1 = new Resource("Aluminum", 500000);
             Resource resource2 = new Resource("Gold", 500000);
             Resource resource3 = new Resource("Tea", 500000);
@@ -137,7 +137,7 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void BuyCertificateTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Resource resource1 = new Resource("Aluminum", 500000);
             Resource resource2 = new Resource("Gold", 500000);
             Resource resource3 = new Resource("Tea", 500000);
@@ -160,7 +160,7 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void BuyCertificateNotInAreaTest()
         {
-            Zone zone = new Zone("Benelux", "Europe", Color.LimeGreen);
+            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
             Resource resource1 = new Resource("Aluminum", 500000);
             Resource resource2 = new Resource("Gold", 500000);
             Resource resource3 = new Resource("Tea", 500000);

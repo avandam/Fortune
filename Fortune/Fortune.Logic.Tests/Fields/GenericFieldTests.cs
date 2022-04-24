@@ -65,7 +65,7 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod]
         public void ChoiceContinentHasResourceTest()
         {
-            ChoiceContinent field = new ChoiceContinent(null, 1,  new Resource("TestResource", 1000000), new List<string> {"Asia", "Oceania" });
+            ChoiceContinent field = new ChoiceContinent(null, 1,  new Resource("TestResource", 1000000), new List<ContinentType> {ContinentType.Asia, ContinentType.Oceania });
             Assert.IsTrue(field.HasResource());
         }
         #endregion ChoiceContinent tests
