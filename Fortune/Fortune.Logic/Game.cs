@@ -16,25 +16,17 @@ namespace Fortune.Logic
         private readonly Random random = new Random();
         private readonly List<Player> players;
         private Player currentPlayer;
-        public List<Field> Fields { get; private set; }
 
         public Game(List<Player> players)
         {
             this.players = players;
             this.currentPlayer = players.First();
-            GameData.InitializeData();
-            CreateGameBoard();
-        }
-
-        private void CreateGameBoard()
-        {
-            Fields = new List<Field>();
-            Fields.Add(new Area(this, 0, GameData.GetRandomResource(), GameData.GetCertificatesForCountry(CountryType.Benelux)));
+            GameData.InitializeData(this);
         }
 
         public void AddBoard(List<Field> boardFields)
         {
-            this.Fields = boardFields;
+            GameData.SetFields(boardFields);
         }
 
         public void DoTurn()
@@ -71,8 +63,8 @@ namespace Fortune.Logic
             redDie = random.Next(1, 6);
             whiteDie = random.Next(1, 6);
 
-            int newFieldNumber = (currentPlayer.GetLocation().Number + redDie + whiteDie) % Fields.Count;
-            Field field = Fields.First(field => field.Number == newFieldNumber);
+            int newFieldNumber = (currentPlayer.GetLocation().Number + redDie + whiteDie) % GameData.GetNumberOfFields();
+            Field field = GameData.GetField(newFieldNumber);
             currentPlayer.MoveTo(field);
             return field;
         }
@@ -81,7 +73,7 @@ namespace Fortune.Logic
         {
             List<Resource> allowedResources = currentPlayer.GetResourcesOwned();
             List<Certificate> possibleCertificates = new List<Certificate>();
-            foreach (Area area in Fields.Where(field => field is Area area && continents.Contains(area.Zone.Continent)))
+            foreach (Area area in GameData.GetFieldsForContinents(continents))
             {
                 List<Certificate> certificates = area.GetCertificates();
                 possibleCertificates.AddRange(certificates.Where(certificate => allowedResources.Contains(certificate.Resource)));
@@ -94,7 +86,7 @@ namespace Fortune.Logic
         {
             List<Resource> allowedResources = currentPlayer.GetResourcesOwned();
             List<Certificate> possibleCertificates = new List<Certificate>();
-            foreach (Area area in Fields.Where(field => field is Area))
+            foreach (Area area in GameData.GetAreas())
             {
                 List<Certificate> certificates = area.GetCertificates();
                 possibleCertificates.AddRange(certificates.Where(certificate => allowedResources.Contains(certificate.Resource)));
@@ -133,7 +125,7 @@ namespace Fortune.Logic
                 throw new CertificateNotAllowedToBuyException("Already purchased the maximum number of certificates this turn");
             }
 
-            Field certificateField = Fields.First(field => field.Zone == certificate.Zone);
+            Field certificateField = GameData.GetFieldByZone(certificate.Zone);
 
             if (!certificateField.GetCertificates().Contains(certificate))
             {
@@ -186,7 +178,7 @@ namespace Fortune.Logic
                 throw new CertificateSaleInvalidException("You cannot sell a certificate you don't own");
             }
 
-            Area area = Fields.First(field => field is Area && (field as Area).Zone == certificate.Zone) as Area;
+            Field area = GameData.GetFieldByZone(certificate.Zone);
             currentPlayer.RemoveCertificate(certificate);
             currentPlayer.UpdateCash(certificate.Price / 2);
             area.ReturnCertificate(certificate);

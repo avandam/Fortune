@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -83,6 +84,41 @@ namespace Fortune.Logic
         [Text("")] None,
         [Text("Nederland")] Netherlands,
         [Text("België")] Belgium,
+        [Text("Italië")] Italy,
+        [Text("Hongarije")] Hungary,
+        [Text("Griekenland")] Greece,
+        [Text("Turkije")] Turkey,
+        [Text("Jamaica")] Jamaica,
+        [Text("Cuba")] Cuba,
+        [Text("Suriname")] Suriname,
+        [Text("Guyana")] Guyana,
+        [Text("Ecuador")] Ecuador, 
+        [Text("Peru")] Peru,
+        [Text("Colombia")] Colombia,
+        [Text("Chili")] Chili,
+        [Text("Uruguay")] Uruguay,
+        [Text("Guinea")] Guinea,
+        [Text("Ivoorkust")] IvoryCoast,
+        [Text("Ghana")] Ghana,
+        [Text("Nigeria")] Nigeria,
+        [Text("Kameroen")] Cameroon,
+        [Text("Gabon")] Gabon,
+        [Text("Zaire")] Zaire,
+        [Text("Zambia")] Zambia,
+        [Text("Kenia")] Kenya,
+        [Text("Australië")] Australia,
+        [Text("Nieuw-Zeeland")] NewZealand,
+        [Text("Nieuw-Caledonië")] NewCaledonia,
+        [Text("Australië-Fidji Nieuw-Guinea")] NewGuinea,
+        [Text("Saoedi-Arabië")] SaudiArabia,
+        [Text("Iran")] Iran,
+        [Text("Irak")] Iraq,
+        [Text("India")] India,
+        [Text("Sri Lanka")] SriLanka,
+        [Text("Pakistan")] Pakistan,
+        [Text("Maleisië")] Malaysia,
+        [Text("Thailand")] Thailand,
+        [Text("Birma")] Myanmar,
     }
 
     public class TextAttribute : Attribute

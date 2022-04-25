@@ -142,8 +142,8 @@ namespace Fortune.Logic.Tests
 
             Game game = new Game(new List<Player> { player });
 
-            Assert.AreEqual(CountryType.Benelux, game.Fields[0].Zone.Country);
-            CollectionAssert.Contains(game.Fields[0].GetCertificates(), GameData.GetCertificate(GameData.GetResource(ResourceType.NaturalGas), GameData.GetZone(CountryType.Benelux), RegionType.Netherlands));
+            Assert.AreEqual(CountryType.Benelux, GameData.GetField(0).Zone.Country);
+            CollectionAssert.Contains(GameData.GetField(0).GetCertificates(), GameData.GetCertificate(GameData.GetResource(ResourceType.NaturalGas), GameData.GetZone(CountryType.Benelux), RegionType.Netherlands));
         }
     }
 }

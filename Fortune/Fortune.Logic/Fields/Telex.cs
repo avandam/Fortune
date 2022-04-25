@@ -1,5 +1,6 @@
 ﻿namespace Fortune.Logic.Fields
 {
+    // TODO: Telex has an issue: DoAction should select a telex, instead of hardcoding one in the constructor like done now
     public class Telex : Field
     {
         private readonly List<Resource> resources;
@@ -26,7 +27,7 @@
         {
         }
 
-        private Telex(Game game, int number) : base(game, number, "Telex")
+        public Telex(Game game, int number) : base(game, number, "Telex")
         {
 
         }

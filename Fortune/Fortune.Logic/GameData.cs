@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Fortune.Logic.Exceptions;
@@ -19,6 +21,7 @@ namespace Fortune.Logic
         private static List<Zone> zones;
         private static List<Resource> resources;
         private static List<Certificate> certificates;
+        private static List<Field> fields;
         private static List<ResourceType> resourceTypes;
         private static Random random = new Random();
 
@@ -26,12 +29,13 @@ namespace Fortune.Logic
         {
         }
 
-        public static void InitializeData()
+        public static void InitializeData(Game game)
         {
             InitializeRandomResources();
             CreateZones();
             CreateResources();
             CreateCertificates();
+            CreateFields(game);
         }
 
         private static void InitializeRandomResources()
@@ -187,12 +191,195 @@ namespace Fortune.Logic
             certificates.Add(new Certificate(GetResource(ResourceType.Coal), 5, 500000, zone, RegionType.Belgium));
 
             zone = GetZone(CountryType.WestGermany);
-            certificates.Add(new Certificate(GetResource(ResourceType.Steel), 10, 1000000, zone, RegionType.None));
-            certificates.Add(new Certificate(GetResource(ResourceType.CarIndustry), 15, 1500000, zone, RegionType.None));
-            certificates.Add(new Certificate(GetResource(ResourceType.Shipyards), 15, 1000000, zone, RegionType.None));
+            certificates.Add(new Certificate(GetResource(ResourceType.Steel), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.CarIndustry), 15, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Shipyards), 15, 1000000, zone));
 
+            zone = GetZone(CountryType.France);
+            certificates.Add(new Certificate(GetResource(ResourceType.Uranium), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wheat), 10,500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Harbors), 10, 500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.CarIndustry), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Shipyards),10, 500000, zone));
 
+            zone = GetZone(CountryType.SouthEurope);
+            certificates.Add(new Certificate(GetResource(ResourceType.Steel), 5, 500000, zone, RegionType.Italy));
+            certificates.Add(new Certificate(GetResource(ResourceType.Shipyards), 5, 500000, zone, RegionType.Italy));
 
+            zone = GetZone(CountryType.GreatBritain);
+            certificates.Add(new Certificate(GetResource(ResourceType.Coal), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.NaturalGas), 5, 500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Harbors), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Shipyards), 15, 1000000, zone));
+
+            zone = GetZone(CountryType.EastEurope);
+            certificates.Add(new Certificate(GetResource(ResourceType.Coal), 15, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Aluminum), 5, 500000, zone, RegionType.Hungary));
+
+            zone = GetZone(CountryType.Balkan);
+            certificates.Add(new Certificate(GetResource(ResourceType.Nickel), 5, 500000, zone, RegionType.Greece));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cotton), 5, 500000, zone, RegionType.Turkey));
+
+            zone = GetZone(CountryType.USSR);
+            certificates.Add(new Certificate(GetResource(ResourceType.Gold), 30, 2500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wheat), 30, 3000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Oil), 30, 3000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Iron), 30, 3500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Nickel), 25, 2500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Steel), 25, 3000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cotton), 25, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.NaturalGas), 25, 500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Copper), 20, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wool), 20, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Coal), 20, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Sugar), 20, 2500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Lead), 20, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Tea), 5, 500000, zone));
+
+            zone = GetZone(CountryType.Canada);
+            certificates.Add(new Certificate(GetResource(ResourceType.Nickel), 25, 2500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Uranium), 20, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Lead), 15, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Silver), 15, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Copper), 15, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Gold), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.NaturalGas), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wheat), 10, 500000, zone));
+            
+            zone = GetZone(CountryType.Mexico);
+            certificates.Add(new Certificate(GetResource(ResourceType.Silver), 20, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Coffee), 15, 500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Lead), 10, 1000000, zone));
+
+            zone = GetZone(CountryType.Caribbean);
+            certificates.Add(new Certificate(GetResource(ResourceType.Aluminum), 20, 2000000, zone, RegionType.Jamaica));
+            certificates.Add(new Certificate(GetResource(ResourceType.Sugar), 15, 1500000, zone, RegionType.Cuba));
+            certificates.Add(new Certificate(GetResource(ResourceType.Nickel), 10, 1000000, zone, RegionType.Cuba));
+
+            zone = GetZone(CountryType.Venezuela);
+            certificates.Add(new Certificate(GetResource(ResourceType.Aluminum), 10, 1000000, zone, RegionType.Suriname));
+            certificates.Add(new Certificate(GetResource(ResourceType.Aluminum), 5, 500000, zone, RegionType.Guyana));
+            certificates.Add(new Certificate(GetResource(ResourceType.Oil), 5, 500000, zone));
+
+            zone = GetZone(CountryType.Andes);
+            certificates.Add(new Certificate(GetResource(ResourceType.Copper), 20, 2000000, zone, RegionType.Chili));
+            certificates.Add(new Certificate(GetResource(ResourceType.Coffee), 15, 500000, zone, RegionType.Colombia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Silver), 15, 1500000, zone, RegionType.Peru));
+            certificates.Add(new Certificate(GetResource(ResourceType.Lead), 10, 500000, zone, RegionType.Peru));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cocoa), 5, 500000, zone, RegionType.Ecuador));
+
+            zone = GetZone(CountryType.Brazil);
+            certificates.Add(new Certificate(GetResource(ResourceType.Coffee), 35, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cocoa), 20, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Sugar), 20, 2500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Iron), 15, 1500000, zone));
+
+            zone = GetZone(CountryType.Argentina);
+            certificates.Add(new Certificate(GetResource(ResourceType.Wool), 10, 500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wool), 5, 500000, zone, RegionType.Uruguay));
+
+            zone = GetZone(CountryType.USA);
+            certificates.Add(new Certificate(GetResource(ResourceType.Uranium), 40, 3000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.NaturalGas), 35, 500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.CarIndustry), 30, 3500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cotton), 25, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Oil), 25, 2500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Copper), 25, 2500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Coal), 25, 3000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Steel), 25, 3000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Lead), 20, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Harbors), 15, 500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Iron), 15, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Silver), 15, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wheat), 15, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Sugar), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Gold), 5, 500000, zone));
+
+            zone = GetZone(CountryType.Morocco);
+            certificates.Add(new Certificate(GetResource(ResourceType.Uranium), 5, 500000, zone));
+
+            zone = GetZone(CountryType.Ethiopia);
+            certificates.Add(new Certificate(GetResource(ResourceType.Coffee), 10, 500000, zone));
+
+            zone = GetZone(CountryType.WestAfrica);
+            certificates.Add(new Certificate(GetResource(ResourceType.Aluminum), 20, 2000000, zone, RegionType.Guinea));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cocoa), 20, 1000000, zone, RegionType.IvoryCoast));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cocoa), 20, 1000000, zone, RegionType.Ghana));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cocoa), 15, 1000000, zone, RegionType.Nigeria));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cocoa), 10, 500000, zone, RegionType.Cameroon));
+            certificates.Add(new Certificate(GetResource(ResourceType.Coffee), 10, 500000, zone, RegionType.IvoryCoast));
+            certificates.Add(new Certificate(GetResource(ResourceType.Rubber), 5, 500000, zone, RegionType.Nigeria));
+
+            zone = GetZone(CountryType.CentralAfrica);
+            certificates.Add(new Certificate(GetResource(ResourceType.Copper), 5, 500000, zone, RegionType.Zaire));
+            certificates.Add(new Certificate(GetResource(ResourceType.Uranium), 5, 500000, zone, RegionType.Gabon));
+
+            zone = GetZone(CountryType.EastAfrica);
+            certificates.Add(new Certificate(GetResource(ResourceType.Copper), 10, 1000000, zone, RegionType.Zambia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Tea), 5, 500000, zone, RegionType.Kenya));
+
+            zone = GetZone(CountryType.SouthAfrica);
+            certificates.Add(new Certificate(GetResource(ResourceType.Gold), 40, 4500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Uranium), 15, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Nickel), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wool), 5, 500000, zone));
+
+            zone = GetZone(CountryType.Oceania);
+            certificates.Add(new Certificate(GetResource(ResourceType.Aluminum), 35, 3500000, zone, RegionType.Australia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wool), 35, 2000000, zone, RegionType.Australia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Iron), 20, 2000000, zone, RegionType.Australia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Silver), 15, 1500000, zone, RegionType.Australia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Lead), 15, 500000, zone, RegionType.Australia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Nickel), 15, 1500000, zone, RegionType.NewCaledonia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wool), 15, 1000000, zone, RegionType.NewZealand));
+            certificates.Add(new Certificate(GetResource(ResourceType.Gold), 5, 500000, zone, RegionType.NewGuinea));
+
+            zone = GetZone(CountryType.MiddleEast);
+            certificates.Add(new Certificate(GetResource(ResourceType.Oil), 20, 2000000, zone, RegionType.SaudiArabia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Oil), 10, 1000000, zone, RegionType.Iran));
+            certificates.Add(new Certificate(GetResource(ResourceType.Oil), 5, 500000, zone, RegionType.Iraq));
+
+            zone = GetZone(CountryType.India);
+            certificates.Add(new Certificate(GetResource(ResourceType.Tea), 35, 2500000, zone, RegionType.India));
+            certificates.Add(new Certificate(GetResource(ResourceType.Rice), 20, 2000000, zone, RegionType.India));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wheat), 15, 1000000, zone, RegionType.India));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cotton), 15, 1000000, zone, RegionType.India));
+            certificates.Add(new Certificate(GetResource(ResourceType.Sugar), 15, 1500000, zone, RegionType.India));
+            certificates.Add(new Certificate(GetResource(ResourceType.Tea), 15, 1000000, zone, RegionType.SriLanka));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cotton), 10, 500000, zone, RegionType.Pakistan));
+            certificates.Add(new Certificate(GetResource(ResourceType.Rubber), 10, 500000, zone, RegionType.India));
+            certificates.Add(new Certificate(GetResource(ResourceType.Rubber), 5, 500000, zone, RegionType.SriLanka));
+
+            zone = GetZone(CountryType.SouthEastAsia);
+            certificates.Add(new Certificate(GetResource(ResourceType.Rubber), 35, 1500000, zone, RegionType.Malaysia));
+            certificates.Add(new Certificate(GetResource(ResourceType.Rubber), 15, 500000, zone, RegionType.Thailand));
+            certificates.Add(new Certificate(GetResource(ResourceType.Rice), 10, 1000000, zone, RegionType.Myanmar));
+            certificates.Add(new Certificate(GetResource(ResourceType.Rice), 10, 1000000, zone, RegionType.Thailand));
+
+            zone = GetZone(CountryType.Japan);
+            certificates.Add(new Certificate(GetResource(ResourceType.Shipyards), 40, 3000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.CarIndustry), 20, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Harbors), 15, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Steel), 15, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Tea), 10, 500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Rice), 10, 500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Silver), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Gold), 5, 500000, zone));
+
+            zone = GetZone(CountryType.China);
+            certificates.Add(new Certificate(GetResource(ResourceType.Rice), 35, 2500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Tea), 25, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Cotton), 20, 1500000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Coal), 20, 2000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Wheat), 15, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Sugar), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Iron), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.NaturalGas), 5, 1000000, zone));
+
+            zone = GetZone(CountryType.Indonesia);
+            certificates.Add(new Certificate(GetResource(ResourceType.Rubber), 25, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Rice), 10, 1000000, zone));
+            certificates.Add(new Certificate(GetResource(ResourceType.Coffee), 10, 500000, zone));
         }
 
         public static List<Certificate> GetCertificatesForCountry(CountryType country)
@@ -203,6 +390,105 @@ namespace Fortune.Logic
         public static Certificate GetCertificate(Resource resource, Zone zone, RegionType region)
         {
             return certificates.First(certificate => certificate.Resource == resource && certificate.Zone == zone && certificate.Region == region);
+        }
+
+        private static void CreateFields(Game game)
+        {
+            fields = new List<Field>();
+            fields.Add(new Area(game, 0, GetRandomResource(), GetCertificatesForCountry(CountryType.Benelux)));
+            fields.Add(new Area(game, 1, GetRandomResource(), GetCertificatesForCountry(CountryType.WestGermany)));
+            fields.Add(new ChoiceContinent(game, 2, GetRandomResource(), new List<ContinentType> {ContinentType.Europe}));
+            fields.Add(new Area(game, 3, GetRandomResource(), GetCertificatesForCountry(CountryType.GreatBritain)));
+            fields.Add(new Area(game, 4, GetRandomResource(), GetCertificatesForCountry(CountryType.France)));
+            fields.Add(new Area(game, 5, GetRandomResource(), GetCertificatesForCountry(CountryType.SouthEurope)));
+            fields.Add(new ChoiceContinent(game, 6, GetRandomResource(), new List<ContinentType> {ContinentType.Europe}));
+            fields.Add(new Area(game, 7, GetRandomResource(), GetCertificatesForCountry(CountryType.EastEurope)));
+            fields.Add(new Area(game, 8, GetRandomResource(), GetCertificatesForCountry(CountryType.Balkan)));
+            fields.Add(new Auction(game, 9));
+            fields.Add(new Bonus(game, 10, GetRandomResource()));
+            fields.Add(new Telex(game, 11));
+            fields.Add(new Area(game, 12, GetRandomResource(), GetCertificatesForCountry(CountryType.USSR)));
+            fields.Add(new Area(game, 13, GetRandomResource(), GetCertificatesForCountry(CountryType.USSR)));
+            fields.Add(new Area(game, 14, GetRandomResource(), GetCertificatesForCountry(CountryType.USSR)));
+            fields.Add(new Telex(game, 15));
+            fields.Add(new Bonus(game, 16, GetRandomResource()));
+            fields.Add(new Joker(game, 17));
+            fields.Add(new Area(game, 18, GetRandomResource(), GetCertificatesForCountry(CountryType.Canada)));
+            fields.Add(new Area(game, 19, GetRandomResource(), GetCertificatesForCountry(CountryType.Mexico)));
+            fields.Add(new ChoiceContinent(game, 20, GetRandomResource(), new List<ContinentType> {ContinentType.America}));
+            fields.Add(new Area(game, 21, GetRandomResource(), GetCertificatesForCountry(CountryType.Caribbean)));
+            fields.Add(new Area(game, 22, GetRandomResource(), GetCertificatesForCountry(CountryType.Venezuela)));
+            fields.Add(new Area(game, 23, GetRandomResource(), GetCertificatesForCountry(CountryType.Andes)));
+            fields.Add(new ChoiceContinent(game, 24, GetRandomResource(), new List<ContinentType> { ContinentType.America }));
+            fields.Add(new Area(game, 25, GetRandomResource(), GetCertificatesForCountry(CountryType.Brazil)));
+            fields.Add(new Area(game, 26, GetRandomResource(), GetCertificatesForCountry(CountryType.Argentina)));
+            fields.Add(new Auction(game, 27));
+            fields.Add(new Bonus(game, 28, GetRandomResource()));
+            fields.Add(new Telex(game, 29));
+            fields.Add(new Area(game, 30, GetRandomResource(), GetCertificatesForCountry(CountryType.USA)));
+            fields.Add(new Area(game, 31, GetRandomResource(), GetCertificatesForCountry(CountryType.USA)));
+            fields.Add(new Area(game, 32, GetRandomResource(), GetCertificatesForCountry(CountryType.USA)));
+            fields.Add(new Telex(game, 33));
+            fields.Add(new Bonus(game, 34, GetRandomResource()));
+            fields.Add(new Auction(game, 35));
+            fields.Add(new Area(game, 36, GetRandomResource(), GetCertificatesForCountry(CountryType.Morocco)));
+            fields.Add(new Area(game, 37, GetRandomResource(), GetCertificatesForCountry(CountryType.Ethiopia)));
+            fields.Add(new Area(game, 38, GetRandomResource(), GetCertificatesForCountry(CountryType.WestAfrica)));
+            fields.Add(new ChoiceContinent(game, 39, GetRandomResource(), new List<ContinentType> { ContinentType.Africa }));
+            fields.Add(new Area(game, 40, GetRandomResource(), GetCertificatesForCountry(CountryType.CentralAfrica)));
+            fields.Add(new Area(game, 41, GetRandomResource(), GetCertificatesForCountry(CountryType.EastAfrica)));
+            fields.Add(new Area(game, 42, GetRandomResource(), GetCertificatesForCountry(CountryType.SouthAfrica)));
+            fields.Add(new Joker(game, 43));
+            fields.Add(new Bonus(game, 44, GetRandomResource()));
+            fields.Add(new ChoiceWorld(game, 45));
+            fields.Add(new Area(game, 46, GetRandomResource(), GetCertificatesForCountry(CountryType.Oceania)));
+            fields.Add(new Telex(game, 47));
+            fields.Add(new Bonus(game, 48, GetRandomResource()));
+            fields.Add(new Auction(game, 49));
+            fields.Add(new Area(game, 50, GetRandomResource(), GetCertificatesForCountry(CountryType.MiddleEast)));
+            fields.Add(new Area(game, 51, GetRandomResource(), GetCertificatesForCountry(CountryType.India)));
+            fields.Add(new Area(game, 52, GetRandomResource(), GetCertificatesForCountry(CountryType.SouthEastAsia)));
+            fields.Add(new ChoiceContinent(game, 53, GetRandomResource(), new List<ContinentType> { ContinentType.Asia, ContinentType.Oceania }));
+            fields.Add(new Area(game, 54, GetRandomResource(), GetCertificatesForCountry(CountryType.Japan)));
+            fields.Add(new Area(game, 55, GetRandomResource(), GetCertificatesForCountry(CountryType.China)));
+            fields.Add(new Area(game, 56, GetRandomResource(), GetCertificatesForCountry(CountryType.Indonesia)));
+            fields.Add(new Joker(game, 57));
+            fields.Add(new Bonus(game, 58, GetRandomResource()));
+            fields.Add(new ChoiceWorld(game, 59));
+            fields.Add(new Area(game, 60, GetRandomResource(), GetCertificatesForCountry(CountryType.Oceania)));
+            fields.Add(new Telex(game, 61));
+            fields.Add(new Bonus(game, 62, GetRandomResource()));
+            fields.Add(new Auction(game, 63));
+        }
+
+        public static Field GetField(int number)
+        {
+            return fields.First(field => field.Number == number);
+        }
+
+        public static void SetFields(List<Field> newFields)
+        {
+            fields = newFields;
+        }
+
+        public static int GetNumberOfFields()
+        {
+            return fields.Count;
+        }
+
+        public static List<Field> GetFieldsForContinents(List<ContinentType> continents)
+        {
+            return fields.Where(field => field is Area area && continents.Contains(area.Zone.Continent)).ToList();
+        }
+
+        public static List<Field> GetAreas()
+        {
+            return fields.Where(field => field is Area).ToList();
+        }
+
+        public static Field GetFieldByZone(Zone zone)
+        {
+            return fields.First(field => field.Zone == zone);
         }
     }
 }
