@@ -16,10 +16,10 @@ namespace Fortune.Logic.Tests.Fields
             Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
             Resource resource2 = new Resource(ResourceType.Gold, 500000);
             Resource resource3 = new Resource(ResourceType.Tea, 500000);
-            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
-            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
-            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
-            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, "Luxemburg");
+            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, RegionType.Belgium);
+            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, RegionType.Belgium);
+            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, RegionType.Belgium);
             List<Certificate> certificates = new List<Certificate> { certificate1, certificate2, certificate3, certificate4 };
             Area field = new Area(null, 1, resource3, certificates);
 
@@ -39,10 +39,10 @@ namespace Fortune.Logic.Tests.Fields
             Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
             Resource resource2 = new Resource(ResourceType.Gold, 500000);
             Resource resource3 = new Resource(ResourceType.Tea, 500000);
-            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
-            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
-            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
-            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, "Luxemburg");
+            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, RegionType.Belgium);
+            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, RegionType.Belgium);
+            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, RegionType.Belgium);
             List<Certificate> certificates = new List<Certificate> { certificate1, certificate2, certificate3, certificate4};
             Area field = new Area(null, 1, resource3, certificates);
 
@@ -60,10 +60,10 @@ namespace Fortune.Logic.Tests.Fields
             Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
             Resource resource2 = new Resource(ResourceType.Gold, 500000);
             Resource resource3 = new Resource(ResourceType.Tea, 500000);
-            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
-            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
-            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
-            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, "Luxemburg");
+            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, RegionType.Belgium);
+            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, RegionType.Belgium);
+            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, RegionType.Belgium);
             List<Certificate> certificates = new List<Certificate> { certificate1, certificate2, certificate3, certificate4 };
             Area field = new Area(null, 1, resource3, certificates);
 
@@ -82,10 +82,10 @@ namespace Fortune.Logic.Tests.Fields
             Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
             Resource resource2 = new Resource(ResourceType.Gold, 500000);
             Resource resource3 = new Resource(ResourceType.Tea, 500000);
-            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
-            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
-            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
-            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, "Luxemburg");
+            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, RegionType.Belgium);
+            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, RegionType.Belgium);
+            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, RegionType.Belgium);
             List<Certificate> certificates = new List<Certificate> { certificate1, certificate2, certificate3 };
             Area field = new Area(null, 1, resource3, certificates);
 
@@ -106,10 +106,10 @@ namespace Fortune.Logic.Tests.Fields
             Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
             Resource resource2 = new Resource(ResourceType.Gold, 500000);
             Resource resource3 = new Resource(ResourceType.Tea, 500000);
-            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
-            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
-            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
-            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, "Luxemburg");
+            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, RegionType.Belgium);
+            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, RegionType.Belgium);
+            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, RegionType.Belgium);
             List<Certificate> certificates = new List<Certificate> { certificate1, certificate2, certificate3, certificate4 };
             Area field = new Area(null, 1, resource3, certificates);
 
@@ -124,10 +124,10 @@ namespace Fortune.Logic.Tests.Fields
             Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
             Resource resource2 = new Resource(ResourceType.Gold, 500000);
             Resource resource3 = new Resource(ResourceType.Tea, 500000);
-            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
-            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
-            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
-            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone2, "Germany");
+            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, RegionType.Belgium);
+            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, RegionType.Belgium);
+            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone2, RegionType.None);
             List<Certificate> certificates = new List<Certificate> { certificate1, certificate2, certificate3};
             Area field = new Area(null, 1, resource3, certificates);
 
@@ -141,10 +141,10 @@ namespace Fortune.Logic.Tests.Fields
             Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
             Resource resource2 = new Resource(ResourceType.Gold, 500000);
             Resource resource3 = new Resource(ResourceType.Tea, 500000);
-            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
-            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
-            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
-            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, "Luxemburg");
+            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, RegionType.Belgium);
+            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, RegionType.Belgium);
+            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, RegionType.Belgium);
             List<Certificate> certificates = new List<Certificate> { certificate1, certificate2, certificate3, certificate4 };
             Area field = new Area(null, 1, resource3, certificates);
 
@@ -164,10 +164,10 @@ namespace Fortune.Logic.Tests.Fields
             Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
             Resource resource2 = new Resource(ResourceType.Gold, 500000);
             Resource resource3 = new Resource(ResourceType.Tea, 500000);
-            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
-            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
-            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
-            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, "Luxemburg");
+            Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, RegionType.Belgium);
+            Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, RegionType.Belgium);
+            Certificate certificate4 = new Certificate(resource3, 5, 500000, zone, RegionType.Belgium);
             List<Certificate> certificates = new List<Certificate> { certificate1, certificate2, certificate3 };
             Area field = new Area(null, 1, resource3, certificates);
 

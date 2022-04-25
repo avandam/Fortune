@@ -18,14 +18,14 @@ namespace Fortune.Logic.Tests.Fields
         public void CreateTextFixedFeeWithResourceTest()
         {
             Telex field = new Telex(null, 1, new List<Resource> { new Resource(ResourceType.Aluminum, 500000) }, 3000000, false, "Problem in a mine, pay {0} if you have {1}.");
-            Assert.AreEqual("Problem in a mine, pay 3 million if you have Aluminum.", field.CreateText());
+            Assert.AreEqual("Problem in a mine, pay 3 million if you have Aluminium.", field.CreateText());
         }
 
         [TestMethod()]
         public void CreateTextVariableFeeTest()
         {
             Telex field = new Telex(null, 1, new List<Resource> { new Resource(ResourceType.Aluminum, 500000)},3000000, 2000000, false, "Problem in an mine, pay {0} if you have {1}, else pay {2}.");
-            Assert.AreEqual("Problem in an mine, pay 3 million if you have Aluminum, else pay 2 million.", field.CreateText());
+            Assert.AreEqual("Problem in an mine, pay 3 million if you have Aluminium, else pay 2 million.", field.CreateText());
         }
     }
 }

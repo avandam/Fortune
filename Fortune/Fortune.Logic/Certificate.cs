@@ -12,9 +12,14 @@ namespace Fortune.Logic
         public int Percentage { get; }
         public int Price { get; }
         public Zone Zone { get; }
-        public string Region { get; }
+        public RegionType Region { get; }
 
-        public Certificate(Resource resource, int percentage, int price, Zone zone, string region)
+        public Certificate(Resource resource, int percentage, int price, Zone zone) : this(resource, percentage, price, zone, RegionType.None)
+        {
+
+        }
+
+        public Certificate(Resource resource, int percentage, int price, Zone zone, RegionType region)
         {
             Resource = resource;
             Percentage = percentage;

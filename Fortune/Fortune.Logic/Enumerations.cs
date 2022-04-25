@@ -78,6 +78,13 @@ namespace Fortune.Logic
         [Text("Zilver")] Silver
     }
 
+    public enum RegionType
+    {
+        [Text("")] None,
+        [Text("Nederland")] Netherlands,
+        [Text("België")] Belgium,
+    }
+
     public class TextAttribute : Attribute
     {
         public string Text;

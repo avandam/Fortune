@@ -172,16 +172,27 @@ namespace Fortune.Logic
 
         private static void CreateCertificates()
         {
-            Resource resource;
+            Zone zone;
             certificates = new List<Certificate>();
 
-            resource = GetResource(ResourceType.NaturalGas);
-            certificates.Add(new Certificate(resource, 35, 500000, GetZone(CountryType.USA), string.Empty));
-            certificates.Add(new Certificate(resource, 25, 500000, GetZone(CountryType.USSR), string.Empty));
-            certificates.Add(new Certificate(resource, 10, 2000000, GetZone(CountryType.Benelux), "Nederland"));
-            certificates.Add(new Certificate(resource, 10, 1000000, GetZone(CountryType.Canada), string.Empty));
-            certificates.Add(new Certificate(resource, 5, 500000, GetZone(CountryType.China), string.Empty));
-            certificates.Add(new Certificate(resource, 5, 1000000, GetZone(CountryType.GreatBritain), string.Empty));
+            zone = GetZone(CountryType.Benelux);
+            certificates.Add(new Certificate(GetResource(ResourceType.Steel), 10, 500000, zone, RegionType.Netherlands));
+            certificates.Add(new Certificate(GetResource(ResourceType.NaturalGas), 10, 2000000, zone, RegionType.Netherlands));
+            certificates.Add(new Certificate(GetResource(ResourceType.Shipyards), 5, 1500000, zone, RegionType.Netherlands));
+            certificates.Add(new Certificate(GetResource(ResourceType.Harbors), 30, 2500000, zone, RegionType.Netherlands));
+            certificates.Add(new Certificate(GetResource(ResourceType.CarIndustry), 10, 1000000, zone, RegionType.Netherlands));
+            certificates.Add(new Certificate(GetResource(ResourceType.CarIndustry), 5, 500000, zone, RegionType.Belgium));
+            certificates.Add(new Certificate(GetResource(ResourceType.Harbors), 10, 1500000, zone, RegionType.Belgium));
+            certificates.Add(new Certificate(GetResource(ResourceType.Iron), 5, 500000, zone, RegionType.Belgium));
+            certificates.Add(new Certificate(GetResource(ResourceType.Coal), 5, 500000, zone, RegionType.Belgium));
+
+            zone = GetZone(CountryType.WestGermany);
+            certificates.Add(new Certificate(GetResource(ResourceType.Steel), 10, 1000000, zone, RegionType.None));
+            certificates.Add(new Certificate(GetResource(ResourceType.CarIndustry), 15, 1500000, zone, RegionType.None));
+            certificates.Add(new Certificate(GetResource(ResourceType.Shipyards), 15, 1000000, zone, RegionType.None));
+
+
+
         }
 
         public static List<Certificate> GetCertificatesForCountry(CountryType country)
@@ -189,7 +200,7 @@ namespace Fortune.Logic
             return certificates.Where(certificate => certificate.Zone.Country == country).ToList();
         }
 
-        public static Certificate GetCertificate(Resource resource, Zone zone, string region)
+        public static Certificate GetCertificate(Resource resource, Zone zone, RegionType region)
         {
             return certificates.First(certificate => certificate.Resource == resource && certificate.Zone == zone && certificate.Region == region);
         }

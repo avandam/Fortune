@@ -60,7 +60,7 @@ namespace Fortune.Logic.Tests
         public void BuyCertificateTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
-            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, "Netherlands");
+            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, RegionType.Netherlands);
             Player player = new Player("Test", 1, 10000000);
             
             Game game = new Game(new List<Player> {player});
@@ -79,8 +79,8 @@ namespace Fortune.Logic.Tests
         public void BuyCertificateNoCertificateAtFieldTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
-            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, "Netherlands");
-            Certificate certificate2 = new Certificate(new Resource(ResourceType.Aluminum, 200000), 5, 500000, zone, "Belgium");
+            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate2 = new Certificate(new Resource(ResourceType.Aluminum, 200000), 5, 500000, zone, RegionType.Belgium);
             Player player = new Player("Test", 1, 10000000);
 
             Game game = new Game(new List<Player> { player });
@@ -96,7 +96,7 @@ namespace Fortune.Logic.Tests
         public void BuyCertificateNotEnoughMoneyTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
-            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, "Netherlands");
+            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, RegionType.Netherlands);
             Player player = new Player("Test", 1, 0);
 
             Game game = new Game(new List<Player> { player });
@@ -112,10 +112,10 @@ namespace Fortune.Logic.Tests
         public void BuyCertificateTooManyBuysTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
-            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, "Netherlands");
-            Certificate certificate2 = new Certificate(new Resource(ResourceType.Aluminum, 200000), 5, 500000, zone, "Belgium");
-            Certificate certificate3 = new Certificate(new Resource(ResourceType.Aluminum, 200000), 5, 500000, zone, "Luxemburg");
-            Certificate certificate4 = new Certificate(new Resource(ResourceType.Iron, 200000), 5, 500000, zone, "Belgium");
+            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, RegionType.Netherlands);
+            Certificate certificate2 = new Certificate(new Resource(ResourceType.Aluminum, 200000), 5, 500000, zone, RegionType.Belgium);
+            Certificate certificate3 = new Certificate(new Resource(ResourceType.Aluminum, 200000), 5, 500000, zone, RegionType.Belgium);
+            Certificate certificate4 = new Certificate(new Resource(ResourceType.Iron, 200000), 5, 500000, zone, RegionType.Belgium);
             Player player = new Player("Test", 1, 10000000);
 
             Game game = new Game(new List<Player> { player });
@@ -143,7 +143,7 @@ namespace Fortune.Logic.Tests
             Game game = new Game(new List<Player> { player });
 
             Assert.AreEqual(CountryType.Benelux, game.Fields[0].Zone.Country);
-            CollectionAssert.Contains(game.Fields[0].GetCertificates(), GameData.GetCertificate(GameData.GetResource(ResourceType.NaturalGas), GameData.GetZone(CountryType.Benelux), "Nederland"));
+            CollectionAssert.Contains(game.Fields[0].GetCertificates(), GameData.GetCertificate(GameData.GetResource(ResourceType.NaturalGas), GameData.GetZone(CountryType.Benelux), RegionType.Netherlands));
         }
     }
 }
