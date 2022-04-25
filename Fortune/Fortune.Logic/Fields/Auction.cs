@@ -2,7 +2,7 @@
 {
     public class Auction : Field
     {
-        public Auction(Game game, int number) : base(game, number, "Auction")
+        public Auction(Game game, int number) : base(game, number, "Veiling")
         {
         }
 

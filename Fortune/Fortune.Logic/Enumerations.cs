@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fortune.Logic
 {
-    public enum ZoneType
+    public enum CountryType
     {
         [Text("Benelux")] Benelux,
         [Text("West-Duitsland")] WestGermany,

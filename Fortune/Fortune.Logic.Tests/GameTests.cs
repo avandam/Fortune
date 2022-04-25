@@ -59,12 +59,12 @@ namespace Fortune.Logic.Tests
         [TestMethod()]
         public void BuyCertificateTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Certificate certificate1 = new Certificate(new Resource("Aluminum", 100000), 5, 500000, zone, "Netherlands");
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, "Netherlands");
             Player player = new Player("Test", 1, 10000000);
             
             Game game = new Game(new List<Player> {player});
-            Area area = new Area(game, 0, new Resource("Aluminum", 100000), new List<Certificate> {certificate1});
+            Area area = new Area(game, 0, new Resource(ResourceType.Aluminum, 100000), new List<Certificate> {certificate1});
             game.AddBoard(new List<Field> { area });
 
             game.DoTurn();
@@ -78,13 +78,13 @@ namespace Fortune.Logic.Tests
         [TestMethod()]
         public void BuyCertificateNoCertificateAtFieldTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Certificate certificate1 = new Certificate(new Resource("Aluminum", 100000), 5, 500000, zone, "Netherlands");
-            Certificate certificate2 = new Certificate(new Resource("Aluminum", 200000), 5, 500000, zone, "Belgium");
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, "Netherlands");
+            Certificate certificate2 = new Certificate(new Resource(ResourceType.Aluminum, 200000), 5, 500000, zone, "Belgium");
             Player player = new Player("Test", 1, 10000000);
 
             Game game = new Game(new List<Player> { player });
-            Area area = new Area(game, 0, new Resource("Aluminum", 100000), new List<Certificate> { certificate1 });
+            Area area = new Area(game, 0, new Resource(ResourceType.Aluminum, 100000), new List<Certificate> { certificate1 });
             game.AddBoard(new List<Field> { area });
 
             game.DoTurn();
@@ -95,12 +95,12 @@ namespace Fortune.Logic.Tests
         [TestMethod()]
         public void BuyCertificateNotEnoughMoneyTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Certificate certificate1 = new Certificate(new Resource("Aluminum", 100000), 5, 500000, zone, "Netherlands");
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, "Netherlands");
             Player player = new Player("Test", 1, 0);
 
             Game game = new Game(new List<Player> { player });
-            Area area = new Area(game, 0, new Resource("Aluminum", 100000), new List<Certificate> { certificate1 });
+            Area area = new Area(game, 0, new Resource(ResourceType.Aluminum, 100000), new List<Certificate> { certificate1 });
             game.AddBoard(new List<Field> { area });
 
             game.DoTurn();
@@ -111,15 +111,15 @@ namespace Fortune.Logic.Tests
         [TestMethod()]
         public void BuyCertificateTooManyBuysTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Certificate certificate1 = new Certificate(new Resource("Aluminum", 100000), 5, 500000, zone, "Netherlands");
-            Certificate certificate2 = new Certificate(new Resource("Aluminum", 200000), 5, 500000, zone, "Belgium");
-            Certificate certificate3 = new Certificate(new Resource("Aluminum", 200000), 5, 500000, zone, "Luxemburg");
-            Certificate certificate4 = new Certificate(new Resource("Iron", 200000), 5, 500000, zone, "Belgium");
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Certificate certificate1 = new Certificate(new Resource(ResourceType.Aluminum, 100000), 5, 500000, zone, "Netherlands");
+            Certificate certificate2 = new Certificate(new Resource(ResourceType.Aluminum, 200000), 5, 500000, zone, "Belgium");
+            Certificate certificate3 = new Certificate(new Resource(ResourceType.Aluminum, 200000), 5, 500000, zone, "Luxemburg");
+            Certificate certificate4 = new Certificate(new Resource(ResourceType.Iron, 200000), 5, 500000, zone, "Belgium");
             Player player = new Player("Test", 1, 10000000);
 
             Game game = new Game(new List<Player> { player });
-            Area area = new Area(game, 0, new Resource("Aluminum", 100000), new List<Certificate> { certificate1, certificate2, certificate3, certificate4 });
+            Area area = new Area(game, 0, new Resource(ResourceType.Aluminum, 100000), new List<Certificate> { certificate1, certificate2, certificate3, certificate4 });
             game.AddBoard(new List<Field> { area });
 
             game.DoTurn();
@@ -133,6 +133,17 @@ namespace Fortune.Logic.Tests
             Assert.IsTrue(player.HasCertificate(certificate3));
             Assert.IsFalse(player.HasCertificate(certificate4));
             Assert.AreEqual(8500000, player.Cash);
+        }
+
+        [TestMethod]
+        public void TestGameBoardSetup()
+        {
+            Player player = new Player("Test", 1, 10000000);
+
+            Game game = new Game(new List<Player> { player });
+
+            Assert.AreEqual(CountryType.Benelux, game.Fields[0].Zone.Country);
+            CollectionAssert.Contains(game.Fields[0].GetCertificates(), GameData.GetCertificate(GameData.GetResource(ResourceType.NaturalGas), GameData.GetZone(CountryType.Benelux), "Nederland"));
         }
     }
 }

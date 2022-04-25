@@ -2,7 +2,7 @@
 {
     public class ChoiceWorld : Field
     {
-        public ChoiceWorld(Game game, int number) : base(game, number, "Choice World")
+        public ChoiceWorld(Game game, int number) : base(game, number, "Keuze Wereld")
         {
         }
         

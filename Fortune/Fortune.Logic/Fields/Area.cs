@@ -4,8 +4,11 @@ namespace Fortune.Logic.Fields
 {
     public class Area : Field
     {
-        public Area(Game game, int number, Resource resource, List<Certificate> certificates) : base(game, number, certificates[0].Zone.Country, resource, certificates)
+        public Resource Resource { get; }
+
+        public Area(Game game, int number, Resource resource, List<Certificate> certificates) : base(game, number, certificates[0].Zone.Country.ToText(), certificates)
         {
+            Resource = resource;
         }
 
         public override void OnEntry(int redDiceValue, int whiteDiceValue)

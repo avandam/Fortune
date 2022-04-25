@@ -9,11 +9,11 @@ namespace Fortune.Logic
 {
     public class Zone
     {
-        public string Country { get; private set; }
+        public CountryType Country { get; private set; }
         public ContinentType Continent { get; private set; }
         public Color Color { get; private set; }
 
-        public Zone(string country, ContinentType continent, Color color)
+        public Zone(CountryType country, ContinentType continent, Color color)
         {
             Country = country;
             Continent = continent;
@@ -22,7 +22,7 @@ namespace Fortune.Logic
 
         public override string ToString()
         {
-            return $"{Country} - {Continent.ToText()}";
+            return $"{Country.ToText()} - {Continent.ToText()}";
         }
     }
 }

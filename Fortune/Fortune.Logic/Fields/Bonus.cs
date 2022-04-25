@@ -2,8 +2,10 @@
 {
     public class Bonus : Field
     {
-        public Bonus(Game game, int number, Resource resource) : base (game, number, "Bonus", resource)
+        public Resource Resource { get; }
+        public Bonus(Game game, int number, Resource resource) : base (game, number, "Bonus")
         {
+            Resource = resource;
         }
 
         public override void OnEntry(int redDiceValue, int whiteDiceValue)

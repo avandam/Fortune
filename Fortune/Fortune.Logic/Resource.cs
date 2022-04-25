@@ -9,10 +9,10 @@ namespace Fortune.Logic
 {
     public class Resource
     {
-        public string Name { get; set; }
+        public ResourceType Name { get; set; }
         public int RoyaltyFee { get; set; }
 
-        public Resource(string name, int royaltyFee)
+        public Resource(ResourceType name, int royaltyFee)
         {
             Name = name;
             RoyaltyFee = royaltyFee;
@@ -44,7 +44,7 @@ namespace Fortune.Logic
 
         public override string ToString()
         {
-            return Name;
+            return Name.ToText();
         }
     }
 }

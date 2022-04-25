@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fortune", "Fortune\Fortune.csproj", "{B003760C-2A28-40BF-B29F-2EF569D8FED3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fortune", "Fortune\Fortune.csproj", "{B003760C-2A28-40BF-B29F-2EF569D8FED3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fortune.Logic", "Fortune.Logic\Fortune.Logic.csproj", "{B451788A-9462-45E5-A4AF-F0858ADEA3DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fortune.Logic", "Fortune.Logic\Fortune.Logic.csproj", "{B451788A-9462-45E5-A4AF-F0858ADEA3DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fortune.Logic.Tests", "Fortune.Logic.Tests\Fortune.Logic.Tests.csproj", "{BF687F80-F18D-4000-8668-7FCEAD763313}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fortune.Logic.Tests", "Fortune.Logic.Tests\Fortune.Logic.Tests.csproj", "{BF687F80-F18D-4000-8668-7FCEAD763313}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

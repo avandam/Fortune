@@ -12,10 +12,10 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void GetCertificatesTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Resource resource1 = new Resource("Aluminum", 500000);
-            Resource resource2 = new Resource("Gold", 500000);
-            Resource resource3 = new Resource("Tea", 500000);
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
+            Resource resource2 = new Resource(ResourceType.Gold, 500000);
+            Resource resource3 = new Resource(ResourceType.Tea, 500000);
             Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
             Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
             Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
@@ -35,10 +35,10 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void GetCertificatesWithResourcesTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Resource resource1 = new Resource("Aluminum", 500000);
-            Resource resource2 = new Resource("Gold", 500000);
-            Resource resource3 = new Resource("Tea", 500000);
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
+            Resource resource2 = new Resource(ResourceType.Gold, 500000);
+            Resource resource3 = new Resource(ResourceType.Tea, 500000);
             Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
             Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
             Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
@@ -56,10 +56,10 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void GetCertificatesWithMultipleResourcesTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Resource resource1 = new Resource("Aluminum", 500000);
-            Resource resource2 = new Resource("Gold", 500000);
-            Resource resource3 = new Resource("Tea", 500000);
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
+            Resource resource2 = new Resource(ResourceType.Gold, 500000);
+            Resource resource3 = new Resource(ResourceType.Tea, 500000);
             Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
             Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
             Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
@@ -78,10 +78,10 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void ReturnCertificateTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Resource resource1 = new Resource("Aluminum", 500000);
-            Resource resource2 = new Resource("Gold", 500000);
-            Resource resource3 = new Resource("Tea", 500000);
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
+            Resource resource2 = new Resource(ResourceType.Gold, 500000);
+            Resource resource3 = new Resource(ResourceType.Tea, 500000);
             Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
             Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
             Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
@@ -102,10 +102,10 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void ReturnCertificateExistingTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Resource resource1 = new Resource("Aluminum", 500000);
-            Resource resource2 = new Resource("Gold", 500000);
-            Resource resource3 = new Resource("Tea", 500000);
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
+            Resource resource2 = new Resource(ResourceType.Gold, 500000);
+            Resource resource3 = new Resource(ResourceType.Tea, 500000);
             Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
             Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
             Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
@@ -119,11 +119,11 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void ReturnCertificateWrongZoneTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Zone zone2 = new Zone("Germany", ContinentType.Europe, Color.LimeGreen);
-            Resource resource1 = new Resource("Aluminum", 500000);
-            Resource resource2 = new Resource("Gold", 500000);
-            Resource resource3 = new Resource("Tea", 500000);
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Zone zone2 = new Zone(CountryType.WestGermany, ContinentType.Europe, Color.LimeGreen);
+            Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
+            Resource resource2 = new Resource(ResourceType.Gold, 500000);
+            Resource resource3 = new Resource(ResourceType.Tea, 500000);
             Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
             Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
             Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
@@ -137,10 +137,10 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void BuyCertificateTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Resource resource1 = new Resource("Aluminum", 500000);
-            Resource resource2 = new Resource("Gold", 500000);
-            Resource resource3 = new Resource("Tea", 500000);
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
+            Resource resource2 = new Resource(ResourceType.Gold, 500000);
+            Resource resource3 = new Resource(ResourceType.Tea, 500000);
             Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
             Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
             Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");
@@ -160,10 +160,10 @@ namespace Fortune.Logic.Tests.Fields
         [TestMethod()]
         public void BuyCertificateNotInAreaTest()
         {
-            Zone zone = new Zone("Benelux", ContinentType.Europe, Color.LimeGreen);
-            Resource resource1 = new Resource("Aluminum", 500000);
-            Resource resource2 = new Resource("Gold", 500000);
-            Resource resource3 = new Resource("Tea", 500000);
+            Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
+            Resource resource1 = new Resource(ResourceType.Aluminum, 500000);
+            Resource resource2 = new Resource(ResourceType.Gold, 500000);
+            Resource resource3 = new Resource(ResourceType.Tea, 500000);
             Certificate certificate1 = new Certificate(resource1, 20, 2000000, zone, "Belgium");
             Certificate certificate2 = new Certificate(resource1, 5, 500000, zone, "Netherlands");
             Certificate certificate3 = new Certificate(resource2, 10, 1000000, zone, "Belgium");

@@ -2,11 +2,14 @@
 {
     public class ChoiceContinent : Field
     {
+        public Resource Resource { get; }
+
         private readonly List<ContinentType> continents;
 
-        public ChoiceContinent(Game game, int number, Resource resource, List<ContinentType> continents) : base(game, number, "Choice ", resource)
+        public ChoiceContinent(Game game, int number, Resource resource, List<ContinentType> continents) : base(game, number, "Keuze " + string.Join(" en ", continents.Select(continent => continent.ToText())))
         {
             this.continents = continents;
+            Resource = resource;
         }
 
         public override void OnEntry(int redDiceValue, int whiteDiceValue)

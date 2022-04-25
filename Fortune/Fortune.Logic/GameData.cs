@@ -4,114 +4,194 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fortune.Logic.Exceptions;
 using Fortune.Logic.Fields;
 
 namespace Fortune.Logic
 {
+    /// <summary>
+    ///  Creates all the static data for the game. Game will create the fields using this data.
+    /// </summary>
     public class GameData
     {
-        // TODO: Maybe Create Dictionaries between enumerationvalues and content?
-        private static List<Zone> zones = new List<Zone>();
-        private static List<Resource> resources = new List<Resource>();
-        private static List<Certificate> certificates = new List<Certificate>();
-
-        public List<Field> Fields { get; }
-        
+        // TODO: Maybe Create Dictionaries between enumerationvalues and content instead of the linq queries?
+        //       But: is it worth the extra overhead of the indexer?
+        private static List<Zone> zones;
+        private static List<Resource> resources;
+        private static List<Certificate> certificates;
+        private static List<ResourceType> resourceTypes;
+        private static Random random = new Random();
 
         public GameData()
         {
-            Fields = new List<Field>();
         }
 
-        public void CreateFields(Game game)
+        public static void InitializeData()
         {
+            InitializeRandomResources();
+            CreateZones();
+            CreateResources();
+            CreateCertificates();
         }
 
-        public static void CreateZones()
+        private static void InitializeRandomResources()
+        {
+            resourceTypes = new List<ResourceType>
+            {
+                ResourceType.NaturalGas,
+                ResourceType.Aluminum,
+                ResourceType.CarIndustry,
+                ResourceType.Cocoa,
+                ResourceType.Gold,
+                ResourceType.Harbors,
+                ResourceType.Iron,
+                ResourceType.Coffee,
+                ResourceType.Copper,
+                ResourceType.Lead,
+                ResourceType.Nickel,
+                ResourceType.Oil,
+                ResourceType.Rice,
+                ResourceType.Rubber,
+                ResourceType.Cotton,
+                ResourceType.Shipyards,
+                ResourceType.Steel,
+                ResourceType.Coal,
+                ResourceType.Sugar,
+                ResourceType.Wheat,
+                ResourceType.Tea,
+                ResourceType.Uranium,
+                ResourceType.Wool,
+                ResourceType.Silver,
+                ResourceType.NaturalGas,
+                ResourceType.Aluminum,
+                ResourceType.CarIndustry,
+                ResourceType.Cocoa,
+                ResourceType.Gold,
+                ResourceType.Harbors,
+                ResourceType.Iron,
+                ResourceType.Coffee,
+                ResourceType.Copper,
+                ResourceType.Lead,
+                ResourceType.Nickel,
+                ResourceType.Oil,
+                ResourceType.Rice,
+                ResourceType.Rubber,
+                ResourceType.Cotton,
+                ResourceType.Shipyards,
+                ResourceType.Steel,
+                ResourceType.Coal,
+                ResourceType.Sugar,
+                ResourceType.Wheat,
+                ResourceType.Tea,
+                ResourceType.Uranium,
+                ResourceType.Wool,
+                ResourceType.Silver,
+            };
+        }
+
+        public static Resource GetRandomResource()
+        {
+            int nextResource = random.Next(0, resourceTypes.Count);
+            Resource resource = GetResource(resourceTypes[nextResource]);
+            resourceTypes.RemoveAt(nextResource);
+            return resource;
+        }
+    
+        private static void CreateZones()
         {
             zones = new List<Zone>();
-            zones.Add(new Zone("Benelux", ContinentType.Europe, Color.LimeGreen));
-            zones.Add(new Zone("West-Duitsland", ContinentType.Europe, Color.LimeGreen));
-            zones.Add(new Zone("Groot-Brittanie", ContinentType.Europe, Color.LimeGreen));
-            zones.Add(new Zone("Frankrijk", ContinentType.Europe, Color.LimeGreen));
-            zones.Add(new Zone("Zuid-Europa", ContinentType.Europe, Color.LimeGreen));
-            zones.Add(new Zone("Oost-Europa", ContinentType.Europe, Color.LimeGreen));
-            zones.Add(new Zone("Balkan", ContinentType.Europe, Color.LimeGreen));
-            zones.Add(new Zone("U.S.S.R.", ContinentType.None, Color.DarkGreen));
-            zones.Add(new Zone("Canada", ContinentType.America, Color.Red));
-            zones.Add(new Zone("Mexico", ContinentType.America, Color.Red));
-            zones.Add(new Zone("Caribisch Gebied", ContinentType.America, Color.Red));
-            zones.Add(new Zone("Venezuela", ContinentType.America, Color.Red));
-            zones.Add(new Zone("Andes", ContinentType.America, Color.Red));
-            zones.Add(new Zone("Brazilie", ContinentType.America, Color.Red));
-            zones.Add(new Zone("Argentinie", ContinentType.America, Color.Red));
-            zones.Add(new Zone("Verenigde Staten", ContinentType.None, Color.DarkOrange));
-            zones.Add(new Zone("Marokko", ContinentType.Africa, Color.SaddleBrown));
-            zones.Add(new Zone("Ethiopie", ContinentType.Africa, Color.SaddleBrown));
-            zones.Add(new Zone("West-Afrika", ContinentType.Africa, Color.SaddleBrown));
-            zones.Add(new Zone("Centraal Afrika", ContinentType.Africa, Color.SaddleBrown));
-            zones.Add(new Zone("Oost-Afrika", ContinentType.Africa, Color.SaddleBrown));
-            zones.Add(new Zone("Zuid-Afrika", ContinentType.Africa, Color.SaddleBrown));
-            zones.Add(new Zone("Oceanie", ContinentType.Oceania, Color.Purple));
-            zones.Add(new Zone("Midden Oosten", ContinentType.Asia, Color.Yellow));
-            zones.Add(new Zone("Voor Indie", ContinentType.Asia, Color.Yellow));
-            zones.Add(new Zone("Zuid-Oost Azie", ContinentType.Asia, Color.Yellow));
-            zones.Add(new Zone("Japan", ContinentType.Asia, Color.Yellow));
-            zones.Add(new Zone("China", ContinentType.Asia, Color.Yellow));
-            zones.Add(new Zone("Indonesie", ContinentType.Asia, Color.Yellow));
+            zones.Add(new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen));
+            zones.Add(new Zone(CountryType.WestGermany, ContinentType.Europe, Color.LimeGreen));
+            zones.Add(new Zone(CountryType.GreatBritain, ContinentType.Europe, Color.LimeGreen));
+            zones.Add(new Zone(CountryType.France, ContinentType.Europe, Color.LimeGreen));
+            zones.Add(new Zone(CountryType.SouthEurope, ContinentType.Europe, Color.LimeGreen));
+            zones.Add(new Zone(CountryType.EastEurope, ContinentType.Europe, Color.LimeGreen));
+            zones.Add(new Zone(CountryType.Balkan, ContinentType.Europe, Color.LimeGreen));
+            zones.Add(new Zone(CountryType.USSR, ContinentType.None, Color.DarkGreen));
+            zones.Add(new Zone(CountryType.Canada, ContinentType.America, Color.Red));
+            zones.Add(new Zone(CountryType.Mexico, ContinentType.America, Color.Red));
+            zones.Add(new Zone(CountryType.Caribbean, ContinentType.America, Color.Red));
+            zones.Add(new Zone(CountryType.Venezuela, ContinentType.America, Color.Red));
+            zones.Add(new Zone(CountryType.Andes, ContinentType.America, Color.Red));
+            zones.Add(new Zone(CountryType.Brazil, ContinentType.America, Color.Red));
+            zones.Add(new Zone(CountryType.Argentina, ContinentType.America, Color.Red));
+            zones.Add(new Zone(CountryType.USA, ContinentType.None, Color.DarkOrange));
+            zones.Add(new Zone(CountryType.Morocco, ContinentType.Africa, Color.SaddleBrown));
+            zones.Add(new Zone(CountryType.Ethiopia, ContinentType.Africa, Color.SaddleBrown));
+            zones.Add(new Zone(CountryType.WestAfrica, ContinentType.Africa, Color.SaddleBrown));
+            zones.Add(new Zone(CountryType.CentralAfrica, ContinentType.Africa, Color.SaddleBrown));
+            zones.Add(new Zone(CountryType.EastAfrica, ContinentType.Africa, Color.SaddleBrown));
+            zones.Add(new Zone(CountryType.SouthAfrica, ContinentType.Africa, Color.SaddleBrown));
+            zones.Add(new Zone(CountryType.Oceania, ContinentType.Oceania, Color.Purple));
+            zones.Add(new Zone(CountryType.MiddleEast, ContinentType.Asia, Color.Yellow));
+            zones.Add(new Zone(CountryType.India, ContinentType.Asia, Color.Yellow));
+            zones.Add(new Zone(CountryType.SouthEastAsia, ContinentType.Asia, Color.Yellow));
+            zones.Add(new Zone(CountryType.Japan, ContinentType.Asia, Color.Yellow));
+            zones.Add(new Zone(CountryType.China, ContinentType.Asia, Color.Yellow));
+            zones.Add(new Zone(CountryType.Indonesia, ContinentType.Asia, Color.Yellow));
         }
 
-        public static Zone GetZone(string name)
+        public static Zone GetZone(CountryType name)
         {
             return zones.First(zone => zone.Country == name);
         }
 
-        public static void CreateResources()
+        private static void CreateResources()
         {
             resources = new List<Resource>(); 
-            resources.Add(new Resource("Aardgas", 500000));
-            resources.Add(new Resource("Aluminium", 900000));
-            resources.Add(new Resource("Auto-Industrie", 800000));
-            resources.Add(new Resource("Cacao", 400000));
-            resources.Add(new Resource("Goud", 1000000));
-            resources.Add(new Resource("Havens", 600000));
-            resources.Add(new Resource("IJzer", 1000000));
-            resources.Add(new Resource("Koffie", 400000));
-            resources.Add(new Resource("Koper", 900000));
-            resources.Add(new Resource("Lood", 600000));
-            resources.Add(new Resource("Nikkel", 800000));
-            resources.Add(new Resource("Olie", 1200000));
-            resources.Add(new Resource("Rijst", 700000));
-            resources.Add(new Resource("Rubber", 400000));
-            resources.Add(new Resource("Ruwe Katoen", 500000));
-            resources.Add(new Resource("Scheepsbouw", 700000));
-            resources.Add(new Resource("Staal", 1100000));
-            resources.Add(new Resource("Steenkool", 1100000));
-            resources.Add(new Resource("Suiker", 900000));
-            resources.Add(new Resource("Tarwe", 1000000));
-            resources.Add(new Resource("Thee", 500000));
-            resources.Add(new Resource("Uranium", 800000));
-            resources.Add(new Resource("Wol", 500000));
-            resources.Add(new Resource("Zilver", 700000));
+            resources.Add(new Resource(ResourceType.NaturalGas, 500000));
+            resources.Add(new Resource(ResourceType.Aluminum, 900000));
+            resources.Add(new Resource(ResourceType.CarIndustry, 800000));
+            resources.Add(new Resource(ResourceType.Cocoa, 400000));
+            resources.Add(new Resource(ResourceType.Gold, 1000000));
+            resources.Add(new Resource(ResourceType.Harbors, 600000));
+            resources.Add(new Resource(ResourceType.Iron, 1000000));
+            resources.Add(new Resource(ResourceType.Coffee, 400000));
+            resources.Add(new Resource(ResourceType.Copper, 900000));
+            resources.Add(new Resource(ResourceType.Lead,600000));
+            resources.Add(new Resource(ResourceType.Nickel, 800000));
+            resources.Add(new Resource(ResourceType.Oil, 1200000));
+            resources.Add(new Resource(ResourceType.Rice, 700000));
+            resources.Add(new Resource(ResourceType.Rubber, 400000));
+            resources.Add(new Resource(ResourceType.Cotton, 500000));
+            resources.Add(new Resource(ResourceType.Shipyards, 700000));
+            resources.Add(new Resource(ResourceType.Steel, 1100000));
+            resources.Add(new Resource(ResourceType.Coal, 1100000));
+            resources.Add(new Resource(ResourceType.Sugar, 900000));
+            resources.Add(new Resource(ResourceType.Wheat, 1000000));
+            resources.Add(new Resource(ResourceType.Tea, 500000));
+            resources.Add(new Resource(ResourceType.Uranium, 800000));
+            resources.Add(new Resource(ResourceType.Wool, 500000));
+            resources.Add(new Resource(ResourceType.Silver, 700000));
         }
 
-        public static Resource GetResource(string name)
+        public static Resource GetResource(ResourceType name)
         {
             return resources.First(resource => resource.Name == name);
         }
 
-        public static void CreateCertificates()
+        private static void CreateCertificates()
         {
             Resource resource;
             certificates = new List<Certificate>();
 
-            resource = GetResource("Aardgas");
-            certificates.Add(new Certificate(resource, 35, 500000, GetZone("Verenigde Staten"), string.Empty));
-            certificates.Add(new Certificate(resource, 25, 500000, GetZone("U.S.S.R."), string.Empty));
-            certificates.Add(new Certificate(resource, 10, 2000000, GetZone("Benelux"), "Nederland"));
-            certificates.Add(new Certificate(resource, 10, 1000000, GetZone("Canada"), string.Empty));
-            certificates.Add(new Certificate(resource, 5, 500000, GetZone("China"), string.Empty));
-            certificates.Add(new Certificate(resource, 5, 1000000, GetZone("Groot-Brittanie"), string.Empty));
+            resource = GetResource(ResourceType.NaturalGas);
+            certificates.Add(new Certificate(resource, 35, 500000, GetZone(CountryType.USA), string.Empty));
+            certificates.Add(new Certificate(resource, 25, 500000, GetZone(CountryType.USSR), string.Empty));
+            certificates.Add(new Certificate(resource, 10, 2000000, GetZone(CountryType.Benelux), "Nederland"));
+            certificates.Add(new Certificate(resource, 10, 1000000, GetZone(CountryType.Canada), string.Empty));
+            certificates.Add(new Certificate(resource, 5, 500000, GetZone(CountryType.China), string.Empty));
+            certificates.Add(new Certificate(resource, 5, 1000000, GetZone(CountryType.GreatBritain), string.Empty));
+        }
+
+        public static List<Certificate> GetCertificatesForCountry(CountryType country)
+        {
+            return certificates.Where(certificate => certificate.Zone.Country == country).ToList();
+        }
+
+        public static Certificate GetCertificate(Resource resource, Zone zone, string region)
+        {
+            return certificates.First(certificate => certificate.Resource == resource && certificate.Zone == zone && certificate.Region == region);
         }
     }
 }
