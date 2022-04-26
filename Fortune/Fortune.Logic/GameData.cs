@@ -23,19 +23,49 @@ namespace Fortune.Logic
         private static List<Certificate> certificates;
         private static List<Field> fields;
         private static List<ResourceType> resourceTypes;
-        private static Random random = new Random();
+        private static List<TelexCard> telexCards;
+        private static readonly Random random = new Random();
 
-        public GameData()
+        private GameData()
         {
         }
 
         public static void InitializeData(Game game)
         {
             InitializeRandomResources();
+            CreateTelexCards();
             CreateZones();
             CreateResources();
             CreateCertificates();
             CreateFields(game);
+        }
+
+        private static void CreateTelexCards()
+        {
+            telexCards = new List<TelexCard>();
+            telexCards.Add(new TelexCard("Gefeliciteerd! - stop - u bent jarig en elke speler geeft u {0} miljoen.", true, 1000000)); // TODO: Other players are involved
+            telexCards.Add(new TelexCard("Groei in de wereldeconomie - stop - Staalindustrieën zijn winstgevend - stop - u ontvangt {0} als u {1} bezit; zoniet dan ontvangt u {2}.", true, 9000000, 7000000, new List<Resource> {GetResource(ResourceType.Steel)}));
+            telexCards.Add(new TelexCard("Internationale spanning - stop - prijzen van {1} springen omhoog - stop - u ontvangt {0} als u {1} bezit; zo niet dan ontvangt u {2}.", true, 6000000, 4000000, new List<Resource> {GetResource(ResourceType.Uranium)}));
+            telexCards.Add(new TelexCard("Uitstekende {1}oogst - stop - u ontvangt {0} als u {1} bezit; zo niet dan ontvangt u {2}.", true, 4000000, 2000000, new List<Resource> {GetResource(ResourceType.Rubber)}));
+            telexCards.Add(new TelexCard("Prachtige {1} oogst - stop - u ontvangt {0} als u {1} bezit; zo niet dan ontvangt u {2}.", true, 7000000, 5000000, new List<Resource> {GetResource(ResourceType.Wheat)}));
+            telexCards.Add(new TelexCard("U heeft vergeten uw verzekering te verlengen - stop - dieven hebben uw huis leeggehaald - stop - er is voor {0} aan geld en juwelen gestolen. Betaal dit bedrag aan de bank.", false, 3000000));
+            telexCards.Add(new TelexCard("U verkoopt uw terreinen in Zuid-Afrika waar een uraniumveld is ontdekt - stop - u ontvangt {0}.", true, 5000000));
+            telexCards.Add(new TelexCard("Uw installaties om {1}erts te delven beantwoorden niet aan de gestelde veiligheidseisen - stop - er is een ongeluk gebeurd - stop - betaal de boete van {0} aan de bank als u {1} heeft.", false, 7000000, new List<Resource> {GetResource(ResourceType.Iron) }));
+            telexCards.Add(new TelexCard("Groot succes in de autoraces - stop - uw merk rijdt altijd aan kop - stop - u ontvangt {0} als u {1} bezit; zo niet dan ontvangt u {2}", true, 6000000, 4000000, new List<Resource> {GetResource(ResourceType.CarIndustry) }));
+            telexCards.Add(new TelexCard("uw laatste boek over wereldhandel is bekroond met een internationale prijs - stop - het publiek vecht erom - stop de auteursrechten leveren u {0} op.", true, 4000000));
+            telexCards.Add(new TelexCard("Een aardbeving vernietigt de scheepsbouwwerven van Yokohama en Osaka - stop - u betaalt {0} als u {1} bezit; zo niet dan betaalt u {2}.", false, 5000000, 3000000, new List<Resource> {GetResource(ResourceType.Shipyards) }));
+            telexCards.Add(new TelexCard("Toevloeiing van kapitaal - stop - de goudmarkt zakt in - stop - u betaalt {0} als u {1} bezit; zo niet dan betaalt u {2}.", false, 7000000, 5000000, new List<Resource> {GetResource(ResourceType.Gold)}));
+            telexCards.Add(new TelexCard("Uw oom in Amerika vindt olie op zijn grond in Texas - stop - hij geeft u een kadootje - stop - u ontvangt {0}.", true, 6000000));
+            telexCards.Add(new TelexCard("Uw onderzoeksvloot ontdekt een antiek galeischip met een grote schat aan boord - stop - de verkoop van die schat brengt {0} op.", true, 3000000));
+            telexCards.Add(new TelexCard("Een hevige cycloon richt grote schade aan in het zuiden van de Verenigde Staten - stop de katoen en tarwevelden zijn verwoest - stop - u betaalt {0} als u {1} bezit; zo niet dan betaalt u {2}.", false, 5000000, 3000000, new List<Resource> { GetResource(ResourceType.Cotton), GetResource(ResourceType.Wheat)}));
+            telexCards.Add(new TelexCard("Incident in Zaire - stop - de koperreserves van Katanga blijken inexploitabel te zijn - stop - u betaalt {0} als u {1} bezit; zo niet dan betaalt u {2}.", false, 6000000, 4000000, new List<Resource> { GetResource(ResourceType.Copper)}));
+            telexCards.Add(new TelexCard("Overproductie van koffie - stop - u betaalt {0} als u {1} bezit; zo niet dan betaalt u {2}.", false, 4000000, 2000000, new List<Resource> {GetResource(ResourceType.Coffee) }));
+            telexCards.Add(new TelexCard("Een van de uw fabrieken is door brand verwoest - stop - u was slecht verzekerd - stop - u moet {0} betalen voor de herbouw.", false, 1000000));
+        }
+
+        public static TelexCard GetTelexCard()
+        {
+            return telexCards[random.Next(0, telexCards.Count - 1)];
         }
 
         private static void InitializeRandomResources()
@@ -95,7 +125,7 @@ namespace Fortune.Logic
 
         public static Resource GetRandomResource()
         {
-            int nextResource = random.Next(0, resourceTypes.Count);
+            int nextResource = random.Next(0, resourceTypes.Count - 1);
             Resource resource = GetResource(resourceTypes[nextResource]);
             resourceTypes.RemoveAt(nextResource);
             return resource;

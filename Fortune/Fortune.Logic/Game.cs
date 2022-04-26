@@ -202,22 +202,22 @@ namespace Fortune.Logic
             currentPlayer.UpdateCash(diceValue * bonusValue);
         }
 
-        public void HandleTelex(string text, List<Resource> resources, int maxFee, int minFee, bool isGain)
+        public void HandleTelex(TelexCard telexCard)
         {
             // Handle UI action to show the telex information
-            if (resources == null || resources.Count == 0)
+            if (telexCard.Resources == null || telexCard.Resources.Count == 0)
             {
-                currentPlayer.UpdateCash(isGain ? maxFee : -maxFee);
+                currentPlayer.UpdateCash(telexCard.IsGain ? telexCard.MaxFee : -telexCard.MaxFee);
                 return;
             }
 
-            if (resources.Any(resource => currentPlayer.HasResource(resource)))
+            if (telexCard.Resources.Any(resource => currentPlayer.HasResource(resource)))
             {
-                currentPlayer.UpdateCash(isGain ? maxFee : -maxFee);
+                currentPlayer.UpdateCash(telexCard.IsGain ? telexCard.MaxFee : -telexCard.MaxFee);
                 return;
             }
 
-            currentPlayer.UpdateCash(isGain ? minFee : -minFee);
+            currentPlayer.UpdateCash(telexCard.IsGain ? telexCard.MinFee : -telexCard.MinFee);
         }
 
         public void HandleChoiceWorld()
