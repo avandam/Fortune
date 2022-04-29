@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Fortune.Logic
 {
     public class Zone
     {
-        public CountryType Country { get; private set; }
-        public ContinentType Continent { get; private set; }
-        public Color Color { get; private set; }
+        public CountryType Country { get; }
+        public ContinentType Continent { get; }
+        public Color Color { get; }
 
         public Zone(CountryType country, ContinentType continent, Color color)
         {

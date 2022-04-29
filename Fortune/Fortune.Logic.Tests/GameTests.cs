@@ -1,20 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Fortune.Logic;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Fortune.Logic.Exceptions;
 using Fortune.Logic.Fields;
 
 namespace Fortune.Logic.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class GameTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void BuyJokerTest()
         {
             Player player = new Player("Test", 1, 10000000);
@@ -25,7 +20,7 @@ namespace Fortune.Logic.Tests
             Assert.AreEqual(1, player.NumberOfJokers);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void BuyJokerNotEnoughMoneyTest()
         {
             Player player = new Player("Test", 1, 1000000);
@@ -34,7 +29,7 @@ namespace Fortune.Logic.Tests
             Assert.ThrowsException<JokerException>(() => game.BuyJoker());
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void SellJokerTest()
         {
             Player player = new Player("Test", 1, 10000000);
@@ -47,7 +42,7 @@ namespace Fortune.Logic.Tests
             Assert.AreEqual(0, player.NumberOfJokers);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void SellJokerNotAllowedTest()
         {
             Player player = new Player("Test", 1, 10000000);
@@ -56,7 +51,7 @@ namespace Fortune.Logic.Tests
             Assert.ThrowsException<JokerException>(() => game.SellJoker());
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void BuyCertificateTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -75,7 +70,7 @@ namespace Fortune.Logic.Tests
             Assert.AreEqual(0, area.GetCertificates().Count);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void BuyCertificateNoCertificateAtFieldTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -92,7 +87,7 @@ namespace Fortune.Logic.Tests
             Assert.ThrowsException<CertificateActionNotAllowedException>(() => game.BuyCertificate(certificate2));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void BuyCertificateNotEnoughMoneyTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -108,7 +103,7 @@ namespace Fortune.Logic.Tests
             Assert.ThrowsException<CertificateActionNotAllowedException>(() => game.BuyCertificate(certificate1));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void BuyCertificateTooManyBuysTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -140,7 +135,7 @@ namespace Fortune.Logic.Tests
         {
             Player player = new Player("Test", 1, 10000000);
 
-            Game game = new Game(new List<Player> { player });
+            new Game(new List<Player> { player });
 
             Assert.AreEqual(CountryType.Benelux, GameData.GetField(0).Zone.Country);
             CollectionAssert.Contains(GameData.GetField(0).GetCertificates(), GameData.GetCertificate(GameData.GetResource(ResourceType.NaturalGas), GameData.GetZone(CountryType.Benelux), RegionType.Netherlands));

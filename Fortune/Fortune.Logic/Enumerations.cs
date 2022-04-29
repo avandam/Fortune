@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
+// ReSharper disable StringLiteralTypo
 
 namespace Fortune.Logic
 {
@@ -24,7 +19,7 @@ namespace Fortune.Logic
         [Text("Zuid-Europa")] SouthEurope,
         [Text("Oost-Europa")] EastEurope,
         [Text("Balkan")] Balkan,
-        [Text("U.S.S.R.")] USSR,
+        [Text("U.S.S.R.")] Ussr,
         [Text("Canada")] Canada,
         [Text("Mexico")] Mexico,
         [Text("Caribisch Gebied")] Caribbean,
@@ -32,7 +27,7 @@ namespace Fortune.Logic
         [Text("Andes")] Andes,
         [Text("Brazilië")] Brazil,
         [Text("Argentinië")] Argentina,
-        [Text("Verenigde Staten")] USA,
+        [Text("Verenigde Staten")] Usa,
         [Text("Marokko")] Morocco,
         [Text("Ethiopië")] Ethiopia,
         [Text("West-Afrika")] WestAfrica,
@@ -143,10 +138,10 @@ namespace Fortune.Logic
         public static string ToText(this Enum enumeration)
         {
             MemberInfo[] memberInfo = enumeration.GetType().GetMember(enumeration.ToString());
-            if (memberInfo != null && memberInfo.Length > 0)
+            if (memberInfo.Length > 0)
             {
                 object[] attributes = memberInfo[0].GetCustomAttributes(typeof(TextAttribute), false);
-                if (attributes != null && attributes.Length > 0)
+                if (attributes.Length > 0)
                 {
                     return ((TextAttribute)attributes[0]).Text;
                 }

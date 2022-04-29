@@ -1,29 +1,24 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Fortune.Logic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+// ReSharper disable StringLiteralTypo
 
 namespace Fortune.Logic.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class EnumExtenderTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void CountryTypeToTextTest()
         {
             Assert.AreEqual("Oceanië", CountryType.Oceania.ToText());
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ResourceTypeToTextTest()
         {
             Assert.AreEqual("Aardgas", ResourceType.NaturalGas.ToText());
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ContinentTypeToTextTest()
         {
             Assert.AreEqual("Oceanië", ContinentType.Oceania.ToText());

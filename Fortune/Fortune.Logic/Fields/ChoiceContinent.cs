@@ -24,7 +24,7 @@
 
         public override string ToString()
         {
-            string continentsText = string.Join(" and ", this.continents);
+            string continentsText = string.Join(" and ", continents);
             return $"{Name} {continentsText}";
         }
     }

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Fortune.Logic.Exceptions;
+﻿using System.Drawing;
 using Fortune.Logic.Fields;
+// ReSharper disable StringLiteralTypo
 
 namespace Fortune.Logic
 {
@@ -16,8 +9,6 @@ namespace Fortune.Logic
     /// </summary>
     public class GameData
     {
-        // TODO: Maybe Create Dictionaries between enumerationvalues and content instead of the linq queries?
-        //       But: is it worth the extra overhead of the indexer?
         private static List<Zone> zones;
         private static List<Resource> resources;
         private static List<Certificate> certificates;
@@ -141,7 +132,7 @@ namespace Fortune.Logic
             zones.Add(new Zone(CountryType.SouthEurope, ContinentType.Europe, Color.LimeGreen));
             zones.Add(new Zone(CountryType.EastEurope, ContinentType.Europe, Color.LimeGreen));
             zones.Add(new Zone(CountryType.Balkan, ContinentType.Europe, Color.LimeGreen));
-            zones.Add(new Zone(CountryType.USSR, ContinentType.None, Color.DarkGreen));
+            zones.Add(new Zone(CountryType.Ussr, ContinentType.None, Color.DarkGreen));
             zones.Add(new Zone(CountryType.Canada, ContinentType.America, Color.Red));
             zones.Add(new Zone(CountryType.Mexico, ContinentType.America, Color.Red));
             zones.Add(new Zone(CountryType.Caribbean, ContinentType.America, Color.Red));
@@ -149,7 +140,7 @@ namespace Fortune.Logic
             zones.Add(new Zone(CountryType.Andes, ContinentType.America, Color.Red));
             zones.Add(new Zone(CountryType.Brazil, ContinentType.America, Color.Red));
             zones.Add(new Zone(CountryType.Argentina, ContinentType.America, Color.Red));
-            zones.Add(new Zone(CountryType.USA, ContinentType.None, Color.DarkOrange));
+            zones.Add(new Zone(CountryType.Usa, ContinentType.None, Color.DarkOrange));
             zones.Add(new Zone(CountryType.Morocco, ContinentType.Africa, Color.SaddleBrown));
             zones.Add(new Zone(CountryType.Ethiopia, ContinentType.Africa, Color.SaddleBrown));
             zones.Add(new Zone(CountryType.WestAfrica, ContinentType.Africa, Color.SaddleBrown));
@@ -250,7 +241,7 @@ namespace Fortune.Logic
             certificates.Add(new Certificate(GetResource(ResourceType.Nickel), 5, 500000, zone, RegionType.Greece));
             certificates.Add(new Certificate(GetResource(ResourceType.Cotton), 5, 500000, zone, RegionType.Turkey));
 
-            zone = GetZone(CountryType.USSR);
+            zone = GetZone(CountryType.Ussr);
             certificates.Add(new Certificate(GetResource(ResourceType.Gold), 30, 2500000, zone));
             certificates.Add(new Certificate(GetResource(ResourceType.Wheat), 30, 3000000, zone));
             certificates.Add(new Certificate(GetResource(ResourceType.Oil), 30, 3000000, zone));
@@ -308,7 +299,7 @@ namespace Fortune.Logic
             certificates.Add(new Certificate(GetResource(ResourceType.Wool), 10, 500000, zone));
             certificates.Add(new Certificate(GetResource(ResourceType.Wool), 5, 500000, zone, RegionType.Uruguay));
 
-            zone = GetZone(CountryType.USA);
+            zone = GetZone(CountryType.Usa);
             certificates.Add(new Certificate(GetResource(ResourceType.Uranium), 40, 3000000, zone));
             certificates.Add(new Certificate(GetResource(ResourceType.NaturalGas), 35, 500000, zone));
             certificates.Add(new Certificate(GetResource(ResourceType.CarIndustry), 30, 3500000, zone));
@@ -437,9 +428,9 @@ namespace Fortune.Logic
             fields.Add(new Auction(game, 9));
             fields.Add(new Bonus(game, 10, GetRandomResource()));
             fields.Add(new Telex(game, 11));
-            fields.Add(new Area(game, 12, GetRandomResource(), GetCertificatesForCountry(CountryType.USSR)));
-            fields.Add(new Area(game, 13, GetRandomResource(), GetCertificatesForCountry(CountryType.USSR)));
-            fields.Add(new Area(game, 14, GetRandomResource(), GetCertificatesForCountry(CountryType.USSR)));
+            fields.Add(new Area(game, 12, GetRandomResource(), GetCertificatesForCountry(CountryType.Ussr)));
+            fields.Add(new Area(game, 13, GetRandomResource(), GetCertificatesForCountry(CountryType.Ussr)));
+            fields.Add(new Area(game, 14, GetRandomResource(), GetCertificatesForCountry(CountryType.Ussr)));
             fields.Add(new Telex(game, 15));
             fields.Add(new Bonus(game, 16, GetRandomResource()));
             fields.Add(new Joker(game, 17));
@@ -455,9 +446,9 @@ namespace Fortune.Logic
             fields.Add(new Auction(game, 27));
             fields.Add(new Bonus(game, 28, GetRandomResource()));
             fields.Add(new Telex(game, 29));
-            fields.Add(new Area(game, 30, GetRandomResource(), GetCertificatesForCountry(CountryType.USA)));
-            fields.Add(new Area(game, 31, GetRandomResource(), GetCertificatesForCountry(CountryType.USA)));
-            fields.Add(new Area(game, 32, GetRandomResource(), GetCertificatesForCountry(CountryType.USA)));
+            fields.Add(new Area(game, 30, GetRandomResource(), GetCertificatesForCountry(CountryType.Usa)));
+            fields.Add(new Area(game, 31, GetRandomResource(), GetCertificatesForCountry(CountryType.Usa)));
+            fields.Add(new Area(game, 32, GetRandomResource(), GetCertificatesForCountry(CountryType.Usa)));
             fields.Add(new Telex(game, 33));
             fields.Add(new Bonus(game, 34, GetRandomResource()));
             fields.Add(new Auction(game, 35));

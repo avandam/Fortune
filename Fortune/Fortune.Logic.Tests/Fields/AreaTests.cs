@@ -6,10 +6,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Fortune.Logic.Tests.Fields
 {
-    [TestClass()]
+    [TestClass]
     public class AreaTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void GetCertificatesTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -32,7 +32,7 @@ namespace Fortune.Logic.Tests.Fields
             CollectionAssert.Contains(certificatesRetrieved, certificate4);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void GetCertificatesWithResourcesTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -53,7 +53,7 @@ namespace Fortune.Logic.Tests.Fields
             CollectionAssert.Contains(certificatesRetrieved, certificate2);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void GetCertificatesWithMultipleResourcesTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -75,7 +75,7 @@ namespace Fortune.Logic.Tests.Fields
             CollectionAssert.Contains(certificatesRetrieved, certificate3);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ReturnCertificateTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -99,7 +99,7 @@ namespace Fortune.Logic.Tests.Fields
             CollectionAssert.Contains(certificatesRetrieved, certificate4);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ReturnCertificateExistingTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -116,7 +116,7 @@ namespace Fortune.Logic.Tests.Fields
             Assert.ThrowsException<CertificateActionNotAllowedException>(() => field.ReturnCertificate(certificate4));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ReturnCertificateWrongZoneTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -134,7 +134,7 @@ namespace Fortune.Logic.Tests.Fields
             Assert.ThrowsException<CertificateActionNotAllowedException>(() => field.ReturnCertificate(certificate4));
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void BuyCertificateTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);
@@ -157,7 +157,7 @@ namespace Fortune.Logic.Tests.Fields
             CollectionAssert.Contains(certificatesRetrieved, certificate4);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void BuyCertificateNotInAreaTest()
         {
             Zone zone = new Zone(CountryType.Benelux, ContinentType.Europe, Color.LimeGreen);

@@ -1,4 +1,5 @@
 ﻿using Fortune.Logic.Exceptions;
+// ReSharper disable StringLiteralTypo
 
 namespace Fortune.Logic
 {
@@ -26,11 +27,11 @@ namespace Fortune.Logic
                 throw new TelexException("TelexType GainFromPlayers can not have resources.");
             }
 
-            this.Resources = resources;
-            this.FlavorText = flavorText;
-            this.Type = type;
-            this.MaxFee = maxFee;
-            this.MinFee = minFee;
+            Resources = resources;
+            FlavorText = flavorText;
+            Type = type;
+            MaxFee = maxFee;
+            MinFee = minFee;
         }
 
         public string CreateText()
@@ -44,13 +45,13 @@ namespace Fortune.Logic
 
             if (MinFee == int.MinValue)
             {
-                return String.Format(FlavorText, SimplifyCurrency(MaxFee), resourcesText);
+                return string.Format(FlavorText, SimplifyCurrency(MaxFee), resourcesText);
             }
 
             return string.Format(FlavorText, SimplifyCurrency(MaxFee), resourcesText, SimplifyCurrency(MinFee));
         }
 
-        private string SimplifyCurrency(int fee)
+        private static string SimplifyCurrency(int fee)
         {
             return (fee / 1000000) + " miljoen";
         }

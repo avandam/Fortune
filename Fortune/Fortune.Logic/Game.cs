@@ -1,6 +1,4 @@
-﻿using System.Runtime.Versioning;
-using System.Security.Cryptography.X509Certificates;
-using Fortune.Logic.Exceptions;
+﻿using Fortune.Logic.Exceptions;
 using Fortune.Logic.Fields;
 
 namespace Fortune.Logic
@@ -12,7 +10,7 @@ namespace Fortune.Logic
         private const int doubleFee = -1000000;
 
         private const int maxNumberOfCertificatesToBuy = 3;
-        public int NumberOfCertificatesBoughtThisTurn { get; private set; } = 0;
+        public int NumberOfCertificatesBoughtThisTurn { get; private set; }
 
         private readonly Random random = new Random();
         private readonly List<Player> players;
