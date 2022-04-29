@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Versioning;
+using System.Security.Cryptography.X509Certificates;
 using Fortune.Logic.Exceptions;
 using Fortune.Logic.Fields;
 
@@ -204,20 +205,31 @@ namespace Fortune.Logic
 
         public void HandleTelex(TelexCard telexCard)
         {
+            int fee = 0;
             // Handle UI action to show the telex information
             if (telexCard.Resources == null || telexCard.Resources.Count == 0)
             {
-                currentPlayer.UpdateCash(telexCard.IsGain ? telexCard.MaxFee : -telexCard.MaxFee);
+                if (telexCard.Type == TelexType.GainFromPlayers)
+                {
+                    foreach (var player in players.Where(player => player != currentPlayer && !player.IsBankrupt))
+                    {
+                        fee += telexCard.MaxFee;
+                        player.UpdateCash(-telexCard.MaxFee);
+                    }
+                    currentPlayer.UpdateCash(fee);
+                    return;
+                }
+                currentPlayer.UpdateCash(telexCard.Type == TelexType.Gain ? telexCard.MaxFee : -telexCard.MaxFee);
                 return;
             }
 
             if (telexCard.Resources.Any(resource => currentPlayer.HasResource(resource)))
             {
-                currentPlayer.UpdateCash(telexCard.IsGain ? telexCard.MaxFee : -telexCard.MaxFee);
+                currentPlayer.UpdateCash(telexCard.Type == TelexType.Gain ? telexCard.MaxFee : -telexCard.MaxFee);
                 return;
             }
 
-            currentPlayer.UpdateCash(telexCard.IsGain ? telexCard.MinFee : -telexCard.MinFee);
+            currentPlayer.UpdateCash(telexCard.Type == TelexType.Gain ? telexCard.MinFee : -telexCard.MinFee);
         }
 
         public void HandleChoiceWorld()
